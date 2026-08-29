@@ -1186,8 +1186,10 @@ const SUNCOURT_SPEC = {
     pergola_clear_h:    { value: 2.6,  tag: "RULING",   source: "sun-court-pavilion.md, clear height over seating" },
     post_section:       { value: 0.08, tag: "ESTIMATE", source: "typical 80mm aluminium post; supplier detail" },
     balcony_slab_y0:    { value: -0.28, tag: "RULING",  source: "GROUND-TRUTH slab zone y -0.28..-1.2, x <= 0; photo+ruling 2026-07-24" },
-    balcony_slab_y1:    { value: -1.2,  tag: "RULING",  source: "EXACT EDGE LINE TO CONFIRM (capture item 2)" },
-    glass_fence_h:      { value: 1.0,  tag: "ESTIMATE", source: "typical pool fence; MEASURE (capture item 5)" }
+    balcony_slab_y1:    { value: -1.2,  tag: "RULING",  source: "EXACT EDGE LINE TO CONFIRM (capture item 2) — now the JOIN LINE, the model's most important unmeasured dimension" },
+    glass_fence_h:      { value: 1.0,  tag: "ESTIMATE", source: "typical pool fence; MEASURE (capture item 5)" },
+    join_pole_x:        { value: -0.7, tag: "ESTIMATE", source: "Richard's annotated screenshot 2026-08-29 18:29 (pink pole at slab edge over pergola); EXACT POSITION = capture item H" },
+    join_pole_y:        { value: -1.2, tag: "ESTIMATE", source: "assumed ON the slab edge line; confirm with capture item 2/H" }
   },
 
   // Renderable elements. bounds = [x0,x1, y0,y1, z0,z1]. tag decides solid vs ghost.
@@ -1242,8 +1244,21 @@ const SUNCOURT_SPEC = {
       bounds: [-1.41, -1.39, -3.89, -0.91, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
     { id: "ziptrak_R", label: "Ziptrak, right side", tag: "ESTIMATE",
       bounds: [1.39, 1.41, -3.89, -0.91, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
-    { id: "wrap_track_pool", label: "Wrap extension track line (balcony soffit, pool face) — CONCEPT", tag: "ESTIMATE",
-      bounds: [-2.21, 0.0, -1.21, -1.19, 2.95, 3.0], style: "frame", color: 0xfbd38d }
+    // ---- the wrap: ziptrak around the whole balcony-covered deck perimeter (2026-08-29 ruling) ----
+    { id: "wrap_track_pool", label: "Wrap track, pool face (balcony soffit, on slab edge)", tag: "ESTIMATE",
+      bounds: [-2.21, -0.74, -1.21, -1.19, 2.95, 3.0], style: "frame", color: 0xfbd38d },
+    { id: "wrap_ziptrak_pool", label: "Wrap ziptrak drop, pool face (clear PVC per 2026-08-14 note)", tag: "ESTIMATE",
+      bounds: [-2.21, -0.74, -1.21, -1.19, 0.0, 2.95], style: "pvc", color: 0xfefcbf },
+    { id: "wrap_track_entrance", label: "Wrap track, entrance side (run + end TO MEASURE)", tag: "ESTIMATE",
+      bounds: [-2.21, -2.19, -1.2, 0.54, 2.95, 3.0], style: "frame", color: 0xfbd38d },
+    { id: "wrap_ziptrak_entrance", label: "Wrap ziptrak drop, entrance side (1% mesh per 2026-08-14 note)", tag: "ESTIMATE",
+      bounds: [-2.21, -2.19, -1.2, 0.54, 0.0, 2.95], style: "pvc", color: 0xd6bcfa },
+
+    // ---- the join (Richard's annotated screenshot, 2026-08-29 18:29) ----
+    { id: "join_pole", label: "JOIN POLE — full height, deck to balcony soffit, ON the slab edge line", tag: "ESTIMATE",
+      bounds: [-0.74, -0.66, -1.24, -1.16, 0.0, 3.0], style: "frame", color: 0xfc8181 },
+    { id: "join_infill", label: "Join infill — pergola roofline (2.6) up to slab edge (3.0), closes the height step", tag: "ESTIMATE",
+      bounds: [-0.74, -0.66, -1.2, -0.9, 2.6, 3.0], style: "frame", color: 0xfc8181 }
   ],
 
   superseded: [
