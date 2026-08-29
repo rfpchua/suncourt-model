@@ -1326,15 +1326,22 @@ const SUNCOURT_SPEC = {
       bounds: [-0.03, 0.03, -6.17, -6.11, 0, 3], style: "solid", color: 0xe2e8f0, edge: 0xfc8181 },
 
 
-    // ---- house doors into the zones (2026-08-29 22:22, Richard): one per zone, existing 1.4 m
-    // sliders; positions SCHEMATIC until capture. Default mode = all zones + house doors OPEN,
-    // the whole enclosure flows as one space with the MBR and bar.
-    { id: "door_mbr_blue", label: "MBR slide door (1.4 m) -> BLUE zone", tag: "ESTIMATE",
-      bounds: [-1.53, -1.47, -5.1, -3.7, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
-    { id: "door_apt_green", label: "Apartment second entrance -> GREEN zone (1.4 m)", tag: "ESTIMATE",
-      bounds: [-2.75, -1.35, -6.17, -6.11, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
-    { id: "door_dbk_red", label: "Bar/DBK slide door (1.4 m) -> RED pergola zone", tag: "ESTIMATE",
-      bounds: [-1.53, -1.47, -2.65, -1.25, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
+    // ---- house doors into the zones (2026-08-29 22:22 + 22:25 correction, Richard): each is a
+    // TWO-PANEL SLIDER SPANNING ITS ENTIRE WALL SECTION - one panel slides behind the other, so the
+    // clear opening = half the facade. Positions SCHEMATIC until capture. Default mode = all zones
+    // + house doors OPEN, the whole enclosure flows as one space with the MBR and bar.
+    { id: "door_mbr_blue", label: "MBR slider -> BLUE: two-panel, spans the full bedroom wall section (opening = half)", tag: "ESTIMATE",
+      bounds: [-1.53, -1.47, -6.14, -3.34, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
+    { id: "door_mbr_mullion", label: "MBR slider mid mullion", tag: "ESTIMATE",
+      bounds: [-1.54, -1.46, -4.77, -4.71, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
+    { id: "door_apt_green", label: "Apartment entrance -> GREEN: two-panel slider, full wall section (opening = half)", tag: "ESTIMATE",
+      bounds: [-2.9, -1.5, -6.17, -6.11, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
+    { id: "door_apt_mullion", label: "Apartment slider mid mullion", tag: "ESTIMATE",
+      bounds: [-2.23, -2.17, -6.18, -6.10, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
+    { id: "door_dbk_red", label: "Bar/DBK slider -> RED: two-panel, spans the full lounge wall section (opening = half)", tag: "ESTIMATE",
+      bounds: [-1.53, -1.47, -3.34, -0.54, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
+    { id: "door_dbk_mullion", label: "Bar/DBK slider mid mullion", tag: "ESTIMATE",
+      bounds: [-1.54, -1.46, -1.97, -1.91, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
 
     // ---- context: the plunge pool (orientation aid) ----
     { id: "plunge_pool", label: "Plunge pool - north edge IS blue PVC line; west corner meets green south end", tag: "ESTIMATE",
