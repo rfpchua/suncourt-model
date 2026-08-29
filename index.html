@@ -1265,10 +1265,12 @@ const SUNCOURT_SPEC = {
       bounds: [-1.56, -1.5, -6.14, -0.54, 0, 3], style: "glass", color: 0x90cdf4 },
 
     // ---- the join: pole mid-way on red's west face (Richard's pole, both annotations) ----
-    { id: "join_pole", label: "JOIN POLE — splits red west face AND doubles as ziptrak guide post for the blue pool face + red outer face", tag: "ESTIMATE",
-      bounds: [-0.04, 0.04, -3.38, -3.3, 0, 2.8], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
-    { id: "plate_bluered", label: "Aluminium plate, blue|red interface: DROPPED to 2.7 (22:54) - the 2.7-3.0 band doubles as the AC duct chase", tag: "ESTIMATE",
-      bounds: [-1.5, 0, -3.38, -3.3, 2.7, 3], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    { id: "join_pole", label: "JOIN POLE = VENT COLUMN (Richard 23:32): ~200 mm box section; AC hose runs INSIDE (air gap keeps the skin cool); welded doubler collars at both holes; still carries blind tracks + plate + curtain rail", tag: "ESTIMATE",
+      bounds: [-0.1, 0.1, -3.44, -3.24, 0.0, 3.1], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    { id: "pole_top_louvre", label: "Pole top: louvred slots ABOVE the 2.8 roofline + cap - the chimney mouth, self-draining, no cowl", tag: "ESTIMATE",
+      bounds: [-0.12, 0.12, -3.46, -3.22, 2.85, 3.1], style: "solid", color: 0xc53030, edge: 0xc53030 },
+    { id: "plate_bluered", label: "Aluminium plate, blue|red interface: back at 2.8-3.0 (23:32 - the vent column replaced the duct chase)", tag: "ESTIMATE",
+      bounds: [-1.5, 0, -3.38, -3.3, 2.8, 3], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
 
     // ---- blue|red interface v2 (2026-08-29 22:19): curtain rail + seal blind, accordion door dropped ----
     { id: "curtain_rail", label: "Curtain rail - full pergola west edge at 2.8, curtains part at the join pole (privacy layer, everyday passage)", tag: "ESTIMATE",
@@ -1277,7 +1279,7 @@ const SUNCOURT_SPEC = {
       bounds: [-1.46, -1.0, -3.37, -3.31, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
     { id: "curtain_right", label: "Curtain, south panel (stacks toward the SW post)", tag: "ESTIMATE",
       bounds: [1.0, 1.46, -3.37, -3.31, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
-    { id: "ziptrak_bluered", label: "Blue|red SEAL blind: clear PVC ziptrak, drops from 2.7 (under the lowered plate) only when cooling (replaces the fixed partition + accordion door)", tag: "ESTIMATE",
+    { id: "ziptrak_bluered", label: "Blue|red SEAL blind: clear PVC ziptrak, drops from 2.8 only when cooling (replaces the fixed partition + accordion door)", tag: "ESTIMATE",
       bounds: [-1.48, -0.04, -3.44, -3.4, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
     { id: "red_outer_pvc", label: "RED outer face, pool side: clear PVC ziptrak (ruled 2026-08-29 21:11)", tag: "ESTIMATE",
       bounds: [0.04, 1.48, -3.36, -3.32, 0, 2.8], style: "pvc", color: 0xfefcbf },
@@ -1354,11 +1356,7 @@ const SUNCOURT_SPEC = {
     { id: "ac_unit", label: "Dual-hose portable AC - Richard's orange mark: clear of both slider openings", tag: "ESTIMATE",
       bounds: [-1.1, -0.55, -3.15, -2.7, 0.0, 0.7], style: "solid", color: 0xed8936, edge: 0xed8936 },
 
-    { id: "ac_duct_riser", label: "EXHAUST riser - Richard's routing (23:16): straight up from the unit in the wall corner, ONE bend at top, insulated + boxed (curtain stacks in front of it)", tag: "ESTIMATE",
-      bounds: [-1.35, -1.15, -3.3, -3.14, 0.7, 2.9], style: "solid", color: 0xed8936, edge: 0xed8936 },
 
-    { id: "ac_louvre_exhaust", label: "EXHAUST louvre in the plate band, above the unit corner - MUST open on the RED side above the 2.8 roofline (never into blue's ceiling space)", tag: "ESTIMATE",
-      bounds: [-1.4, -1.1, -3.39, -3.35, 2.82, 2.98], style: "solid", color: 0xc53030, edge: 0xc53030 },
 
     { id: "ac_intake_duct", label: "INTAKE duct: floor-level run along the north wall to the bonsai face north end bay (insulation optional - it carries ambient air)", tag: "ESTIMATE",
       bounds: [-1.45, -1.3, -2.7, -0.6, 0.1, 0.25], style: "solid", color: 0x2f855a, edge: 0x2f855a },
@@ -1367,6 +1365,9 @@ const SUNCOURT_SPEC = {
 
     { id: "ac_condensate", label: "Condensate drain hose: unit base -> deck drain, continuous fall (no bucket)", tag: "ESTIMATE",
       bounds: [-1.0, -0.95, -3.1, -2.0, 0.02, 0.08], style: "solid", color: 0x63b3ed, edge: 0x63b3ed },
+
+    { id: "ac_hose_to_pole", label: "Exhaust hose: unit -> low opening in the vent column (insulated; ~1 m; 2 bends total)", tag: "ESTIMATE",
+      bounds: [-1.0, -0.1, -3.28, -3.14, 0.3, 0.5], style: "solid", color: 0xed8936, edge: 0xed8936 },
 
     // ---- context: the plunge pool (orientation aid) ----
     { id: "plunge_pool", label: "Plunge pool - north edge IS blue PVC line; west corner meets green south end", tag: "ESTIMATE",
