@@ -1251,8 +1251,12 @@ const SUNCOURT_SPEC = {
       bounds: [-1.5, -1.4, -3.34, -0.54, 2.7, 2.8], style: "frame", color: 0xf7fafc },
     { id: "beam_S", label: "Beam, pavilion side", tag: "ESTIMATE",
       bounds: [1.4, 1.5, -3.34, -0.54, 2.7, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "spine_beam", label: "Central spine beam (retractable roof)", tag: "ESTIMATE",
-      bounds: [-0.05, 0.05, -3.34, -0.54, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "spine_beam", label: "Central spine beam - REORIENTED N-S (22:46): runs in the travel direction; roof retracts NORTH toward the house, fabric stacks at the lounge wall", tag: "ESTIMATE",
+      bounds: [-1.5, 1.5, -1.97, -1.91, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "roof_gutter", label: "Gutter on the SOUTH beam - closed roof slopes away from the house; sheds here, never toward bonsai or pool deck", tag: "ESTIMATE",
+      bounds: [1.5, 1.56, -3.34, -0.54, 2.6, 2.68], style: "frame", color: 0xfbd38d },
+    { id: "roof_downpipe", label: "Downpipe at SE post to a deck drain (discharge away from the bonsai pit)", tag: "ESTIMATE",
+      bounds: [1.44, 1.5, -0.62, -0.56, 0.0, 2.6], style: "frame", color: 0xfbd38d },
     { id: "red_pvc_bonsai", label: "RED east face: clear PVC to the bonsai", tag: "ESTIMATE",
       bounds: [-1.48, 1.48, -0.56, -0.54, 0, 2.8], style: "pvc", color: 0xfefcbf },
     { id: "red_face_south", label: "RED south/pool face: clear PVC ziptrak (ruled 2026-08-29 21:11)", tag: "ESTIMATE",
@@ -1339,6 +1343,15 @@ const SUNCOURT_SPEC = {
       bounds: [-1.53, -1.47, -3.34, -0.54, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
     { id: "door_dbk_mullion", label: "Bar/DBK slider mid mullion", tag: "ESTIMATE",
       bounds: [-1.54, -1.46, -1.97, -1.91, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
+
+
+    // ---- finishing details (2026-08-29 22:46, Richard) ----
+    { id: "outer_shade_blue", label: "Electric woven shade OUTSIDE blue pool-face PVC - street-lamp blackout, lowered at night (own property, blinds-precedent allowed)", tag: "ESTIMATE",
+      bounds: [0.04, 0.08, -6.14, -3.34, 0.0, 3.0], style: "pvc", color: 0x4a5568, edge: 0x9f7aea },
+    { id: "ac_unit", label: "Dual-hose portable AC - Richard's orange mark: clear of both slider openings", tag: "ESTIMATE",
+      bounds: [-1.1, -0.55, -3.15, -2.7, 0.0, 0.7], style: "solid", color: 0xed8936, edge: 0xed8936 },
+    { id: "ac_ducts", label: "2x150mm INSULATED ducts, high on the lounge wall -> bonsai well NORTH end column; exhaust above canopy aimed up, intake low; both hoses in the well = pressure-neutral", tag: "ESTIMATE",
+      bounds: [-1.45, -1.3, -2.8, -0.56, 2.3, 2.45], style: "solid", color: 0xed8936, edge: 0xed8936 },
 
     // ---- context: the plunge pool (orientation aid) ----
     { id: "plunge_pool", label: "Plunge pool - north edge IS blue PVC line; west corner meets green south end", tag: "ESTIMATE",
