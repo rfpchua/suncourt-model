@@ -1139,36 +1139,41 @@
 </script><script>
 // Sun-court pergola + ziptrak enclosure — model spec (single source of truth for dimensions)
 // Coordinate system: SHARED WITH THE BONSAI MODEL (projects/bonsai-garden).
-//   x: along the courtyard opening (opening spans |x| <= 1.98; soffit returns 1.98..2.21)
-//   y: +0.54 = foyer glass plane; negative y = toward the sun court
-//   z: up; 0 = courtyard deck level; well recess floor at -0.67; soffit at 3.0
+//   x: plan north-south along the courtyard bay (x<0 = north/dining side; bay spans |x| <= 1.98)
+//   y: +0.54 = foyer glass plane; negative y = westward, out through the court toward the PES
+//   z: up; 0 = deck level; well recess floor at -0.67; balcony soffit at 3.0
 // Units: metres.
 // Provenance tags (REQUIRED on every dimension — the renderer refuses untagged entries):
-//   MEASURED    — tape/laser on site, raw reading + evidence noted
-//   CALCULATION — derived arithmetically from MEASURED values
-//   RULING      — owner decision or confirmed fact without a tape (photo-confirmed zones etc.)
-//   ESTIMATE    — floor-plan read, assumption, or placement guess; rendered GHOSTED
-// Rule (bonsai lesson): nothing is promoted to MEASURED without a tape. Photo reads enter as ESTIMATE only.
+//   MEASURED / CALCULATION / RULING / ESTIMATE (ESTIMATE renders GHOSTED)
+// Rule (bonsai lesson): nothing is promoted to MEASURED without a tape. Photo/plan reads are ESTIMATE.
+//
+// LAYOUT AUTHORITY: Richard's annotated floor plan, 2026-08-29 20:49 (green/blue/red markup on the
+// architects61 Type Cg plan). Zone chain, west to east:
+//   GREEN (1% mesh zone, west PES strip) —door/airlock— BLUE (pool-viewing zone: clear PVC to the
+//   plunge pool) —blue|red interface: blind drops from 2.8 with aluminium plate closing 2.8..3.0—
+//   RED pergola (roof ~2.8; clear PVC on its bonsai/east face) —— open bonsai court —— bay window.
+//   Ziptrak zones run FULL 3.0 m, flush with the balcony soffit. The join pole stands mid-way on
+//   red's west face: north half meets blue, south half faces the pool walkway (curtain if walkable,
+//   clear PVC "window" if not — pending capture item H8).
 
 const SUNCOURT_SPEC = {
   meta: {
     as_of: "2026-08-29",
-    status: "STUB — banked dimensions only; capture walk pending (Wed 2026-09-02)",
+    status: "STUB v2 — layout re-drawn from Richard's annotated plan; dimensions still pre-capture",
     sources: [
+      "Richard's annotated floor plan 2026-08-29 20:49 (zone chain + materials + heights)",
+      "architects61 Type Cg plan 01-18 (1:100, Drive 1YmJRWQh1BgMe4NCccNPB2lTfXt-JQlZ4)",
       "projects/bonsai-garden/GROUND-TRUTH.md (2026-07-24 tape session)",
-      "projects/bonsai-garden/tree-and-site.md",
-      "projects/bonsai-garden/sun-court-pavilion.md",
-      "house/floor-plan.md (architect 1:100)",
       "ops/wip/suncourt-pergola-ziptrak.md"
     ]
   },
 
   dimensions: {
-    opening_width:      { value: 3.96, tag: "CALCULATION", source: "bay 4.42 (MEASURED IMG_4254/4256) minus 2 x 0.23 ledges (MEASURED IMG_4261)" },
+    opening_width:      { value: 3.96, tag: "CALCULATION", source: "bay 4.42 (MEASURED) minus 2 x 0.23 ledges (MEASURED)" },
     bay_width:          { value: 4.42, tag: "MEASURED", raw: "174 in", source: "tape 2026-07-24" },
     pool_depth_y:       { value: 1.08, tag: "MEASURED", source: "tape 2026-07-24" },
     well_recess:        { value: 0.67, tag: "MEASURED", source: "tape 2026-07-24" },
-    soffit_height:      { value: 3.0,  tag: "MEASURED", source: "owner-confirmed 2026-07-24; RE-CHECK along wrap line (capture item 1)" },
+    soffit_height:      { value: 3.0,  tag: "MEASURED", source: "owner-confirmed 2026-07-24; ziptrak zones run to this, flush (Richard 2026-08-29)" },
     soffit_return_d:    { value: 1.08, tag: "MEASURED", source: "tape 2026-07-24" },
     soffit_return_w:    { value: 0.23, tag: "MEASURED", raw: "9 in", source: "tape 2026-07-24" },
     sill_height:        { value: 0.52, tag: "MEASURED", source: "tape 2026-07-24 (inside sill)" },
@@ -1178,108 +1183,129 @@ const SUNCOURT_SPEC = {
     pot_rim_w:          { value: 0.84, tag: "MEASURED", raw: "33 in", source: "IMG_1576" },
     pot_height:         { value: 0.52, tag: "MEASURED", raw: "20-21 in", source: "IMG_1565" },
     platform:           { value: 0.9,  tag: "MEASURED", source: "0.9 x 0.9 x 0.103 platform, GROUND-TRUTH" },
-    court_x:            { value: 3.2,  tag: "ESTIMATE", source: "floor-plan.md courtyard 3.2 x 3.4; axis mapping vs model UNCONFIRMED (capture item 6)" },
-    court_y:            { value: 3.4,  tag: "ESTIMATE", source: "floor-plan.md; '3.4 m is the sun-court edge' per tree-and-site" },
-    ziptrak_ns_len:     { value: 2.8,  tag: "ESTIMATE", source: "floor-plan.md 'Ziptrackable N-S length: 2.8M'" },
-    pergola_x:          { value: 2.8,  tag: "RULING",   source: "sun-court-pavilion.md confirmed frame 2.8 x 3.0 = 8.4 sqm (< 10 sqm shelter limb)" },
-    pergola_y:          { value: 3.0,  tag: "RULING",   source: "sun-court-pavilion.md" },
-    pergola_clear_h:    { value: 2.6,  tag: "RULING",   source: "sun-court-pavilion.md, clear height over seating" },
+    court_depth:        { value: 2.9,  tag: "ESTIMATE", source: "open bonsai court west of the bay, scaled off the 1:100 plan; TAPE Wednesday" },
+    pergola_ns:         { value: 3.0,  tag: "RULING",   source: "frame 2.8 x 3.0 = 8.4 sqm (sun-court-pavilion.md); orientation per annotated plan" },
+    pergola_ew:         { value: 2.8,  tag: "RULING",   source: "sun-court-pavilion.md" },
+    pergola_roof_h:     { value: 2.8,  tag: "ESTIMATE", source: "Richard 2026-08-29: 'pergola might be 2.8m'; blinds at blue|red start at 2.8 + plate to 3.0" },
+    plate_gap:          { value: 0.2,  tag: "CALCULATION", source: "3.0 soffit minus 2.8 pergola roofline = aluminium plate height at blue|red interface" },
+    blue_len:           { value: 2.8,  tag: "ESTIMATE", source: "blue strip run scaled off plan; TAPE (capture F1)" },
+    blue_width:         { value: 1.5,  tag: "ESTIMATE", source: "master wall to plunge-pool edge, scaled off plan; TAPE (capture H7)" },
+    green_len:          { value: 1.6,  tag: "ESTIMATE", source: "west PES strip, scaled off plan; TAPE (capture F2)" },
     post_section:       { value: 0.08, tag: "ESTIMATE", source: "typical 80mm aluminium post; supplier detail" },
-    balcony_slab_y0:    { value: -0.28, tag: "RULING",  source: "GROUND-TRUTH slab zone y -0.28..-1.2, x <= 0; photo+ruling 2026-07-24" },
-    balcony_slab_y1:    { value: -1.2,  tag: "RULING",  source: "EXACT EDGE LINE TO CONFIRM (capture item 2) — now the JOIN LINE, the model's most important unmeasured dimension" },
     glass_fence_h:      { value: 1.0,  tag: "ESTIMATE", source: "typical pool fence; MEASURE (capture item 5)" },
-    join_pole_x:        { value: -0.7, tag: "ESTIMATE", source: "Richard's annotated screenshot 2026-08-29 18:29 (pink pole at slab edge over pergola); EXACT POSITION = capture item H" },
-    join_pole_y:        { value: -1.2, tag: "ESTIMATE", source: "assumed ON the slab edge line; confirm with capture item 2/H" }
+    walkway_gap:        { value: 0.6,  tag: "ESTIMATE", source: "red outer face to plunge-pool edge — DECIDES curtain vs PVC (capture item H8)" }
+  },
+
+  // Zone materials (Richard's annotated-plan ruling, 2026-08-29):
+  zones: {
+    green: "1% mesh, full 3.0 m, under balcony — fan zone",
+    blue:  "pool-viewing zone: clear PVC on the plunge-pool face, full 3.0 m, under balcony",
+    red:   "pergola ~2.8 m: clear PVC on the bonsai/east face; outer west face split by mid pole (north half = blue interface w/ plate; south half = curtain OR PVC pending walkway width H8)",
+    open_q: "red south face material unstated; green outer faces assumed 1% mesh all round"
   },
 
   // Renderable elements. bounds = [x0,x1, y0,y1, z0,z1]. tag decides solid vs ghost.
   elements: [
+    // ---- banked geometry (2026-07-24 tapes) ----
     { id: "well_pool",      label: "Planting pool (bonsai well)", tag: "MEASURED",
       bounds: [-1.98, 1.98, -0.54, 0.54, -0.67, 0.0], style: "floor", color: 0x4a5568 },
     { id: "sill_wall",      label: "Sill wall (foyer side)", tag: "MEASURED",
       bounds: [-1.98, 1.98, 0.54, 0.64, 0.0, 0.52], style: "solid", color: 0x718096 },
     { id: "foyer_glass",    label: "Foyer glazing (y=+0.54)", tag: "MEASURED",
       bounds: [-1.98, 1.98, 0.53, 0.55, 0.52, 3.0], style: "glass", color: 0x63b3ed },
-    { id: "return_glass_L", label: "Side-return glass (x=-2.21)", tag: "MEASURED",
+    { id: "return_glass_L", label: "Side-return glass (north end)", tag: "MEASURED",
       bounds: [-2.22, -2.20, -0.54, 0.54, 0.0, 3.0], style: "glass", color: 0x63b3ed },
-    { id: "return_glass_R", label: "Side-return glass (x=+2.21)", tag: "MEASURED",
+    { id: "return_glass_R", label: "Side-return glass (south end)", tag: "MEASURED",
       bounds: [2.20, 2.22, -0.54, 0.54, 0.0, 3.0], style: "glass", color: 0x63b3ed },
-    { id: "soffit_return_L", label: "Soffit return L", tag: "MEASURED",
+    { id: "soffit_return_L", label: "Soffit return N", tag: "MEASURED",
       bounds: [-2.21, -1.98, -0.54, 0.54, 3.0, 3.15], style: "solid", color: 0xa0aec0 },
-    { id: "soffit_return_R", label: "Soffit return R", tag: "MEASURED",
+    { id: "soffit_return_R", label: "Soffit return S", tag: "MEASURED",
       bounds: [1.98, 2.21, -0.54, 0.54, 3.0, 3.15], style: "solid", color: 0xa0aec0 },
     { id: "tree_envelope",  label: "Bonsai envelope (1.93 x 1.5 x 2.1 over pot)", tag: "MEASURED",
       bounds: [-0.965, 0.965, -0.75, 0.75, -0.05, 2.05], style: "canopy", color: 0x48bb78 },
     { id: "pot",            label: "Pot + platform", tag: "MEASURED",
       bounds: [-0.42, 0.42, -0.42, 0.42, -0.67, -0.05], style: "solid", color: 0x975a16 },
-    { id: "balcony_slab",   label: "Balcony slab over court (edge TO CONFIRM)", tag: "RULING",
+    { id: "balcony_slab_bay", label: "Balcony slab over bay area, dining-side half (edge TO CONFIRM)", tag: "RULING",
       bounds: [-2.21, 0.0, -1.2, -0.28, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
 
-    // ---- everything below is ESTIMATE: ghosted until the Wednesday walk ----
-    { id: "court_deck",     label: "Sun-court deck (3.2 x 3.4, axis mapping unconfirmed)", tag: "ESTIMATE",
-      bounds: [-1.6, 1.6, -3.94, -0.54, -0.05, 0.0], style: "floor", color: 0x8b6f47 },
-    { id: "post_A", label: "Pergola post A", tag: "ESTIMATE",
-      bounds: [-1.44, -1.36, -0.94, -0.86, 0.0, 2.6], style: "frame", color: 0xf7fafc },
-    { id: "post_B", label: "Pergola post B (power)", tag: "ESTIMATE",
-      bounds: [1.36, 1.44, -0.94, -0.86, 0.0, 2.6], style: "frame", color: 0xf7fafc },
-    { id: "post_C", label: "Pergola post C", tag: "ESTIMATE",
-      bounds: [1.36, 1.44, -3.94, -3.86, 0.0, 2.6], style: "frame", color: 0xf7fafc },
-    { id: "post_D", label: "Pergola post D", tag: "ESTIMATE",
-      bounds: [-1.44, -1.36, -3.94, -3.86, 0.0, 2.6], style: "frame", color: 0xf7fafc },
-    { id: "beam_front", label: "Beam (bonsai side)", tag: "ESTIMATE",
-      bounds: [-1.44, 1.44, -0.94, -0.86, 2.6, 2.72], style: "frame", color: 0xf7fafc },
-    { id: "beam_back", label: "Beam (far side)", tag: "ESTIMATE",
-      bounds: [-1.44, 1.44, -3.94, -3.86, 2.6, 2.72], style: "frame", color: 0xf7fafc },
-    { id: "beam_L", label: "Beam L", tag: "ESTIMATE",
-      bounds: [-1.44, -1.36, -3.94, -0.86, 2.6, 2.72], style: "frame", color: 0xf7fafc },
-    { id: "beam_R", label: "Beam R", tag: "ESTIMATE",
-      bounds: [1.36, 1.44, -3.94, -0.86, 2.6, 2.72], style: "frame", color: 0xf7fafc },
-    { id: "spine_beam", label: "Central spine beam (roof retracts toward sunroom)", tag: "ESTIMATE",
-      bounds: [-0.06, 0.06, -3.94, -0.86, 2.6, 2.72], style: "frame", color: 0xf7fafc },
-    { id: "ziptrak_bonsai", label: "Ziptrak, bonsai side (CLEAR PVC)", tag: "ESTIMATE",
-      bounds: [-1.40, 1.40, -0.91, -0.89, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
-    { id: "ziptrak_far", label: "Ziptrak, far side (PVC + curtain inside)", tag: "ESTIMATE",
-      bounds: [-1.40, 1.40, -3.91, -3.89, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
-    { id: "ziptrak_L", label: "Ziptrak, left side", tag: "ESTIMATE",
-      bounds: [-1.41, -1.39, -3.89, -0.91, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
-    { id: "ziptrak_R", label: "Ziptrak, right side", tag: "ESTIMATE",
-      bounds: [1.39, 1.41, -3.89, -0.91, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
-    // ---- the wrap: the UNDER-BALCONY corridor (2026-08-29 ruling; whole zone SCHEMATIC — no
-    // banked geometry exists for the deck strip beyond the court; capture items H fix all of it).
-    // Concept: the balcony slab continues over a deck corridor running from the court toward the
-    // master bedroom / plunge pool frontage. Ziptrak drops hang from its outer (pool-facing) edge.
-    { id: "corridor_slab", label: "Balcony slab over corridor (SCHEMATIC extent)", tag: "ESTIMATE",
-      bounds: [-5.0, -2.21, -1.2, 0.54, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
-    { id: "corridor_deck", label: "Under-balcony deck corridor (SCHEMATIC)", tag: "ESTIMATE",
-      bounds: [-5.0, -2.21, -1.2, 0.54, -0.05, 0.0], style: "floor", color: 0x8b6f47 },
-    { id: "bedroom_wall", label: "Master-bedroom frontage (SCHEMATIC — glass door somewhere along here)", tag: "ESTIMATE",
-      bounds: [-5.0, -2.21, 0.54, 0.6, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
-    { id: "wrap_ziptrak_pool", label: "Wrap ziptrak, corridor pool face (clear PVC per 2026-08-14 note)", tag: "ESTIMATE",
-      bounds: [-5.0, -2.21, -1.21, -1.19, 0.0, 2.95], style: "pvc", color: 0xfefcbf },
-    { id: "wrap_ziptrak_end", label: "Wrap ziptrak, corridor far end (material TBD by zone map)", tag: "ESTIMATE",
-      bounds: [-5.01, -4.99, -1.2, 0.54, 0.0, 2.95], style: "pvc", color: 0xd6bcfa },
-    { id: "wrap_ziptrak_court_pool", label: "Wrap ziptrak, court pool face (slab edge, joins pergola at the pole)", tag: "ESTIMATE",
-      bounds: [-2.21, -0.74, -1.21, -1.19, 0.0, 2.95], style: "pvc", color: 0xfefcbf },
+    // ---- open bonsai court (stays open to sky in every state) ----
+    { id: "court_deck", label: "Open bonsai court (no roof, no blinds — tree's sky)", tag: "ESTIMATE",
+      bounds: [-1.7, 1.7, -3.4, -0.54, -0.05, 0.0], style: "floor", color: 0x8b6f47 },
 
-    // ---- the join (Richard's annotated screenshot, 2026-08-29 18:29) ----
-    { id: "join_pole", label: "JOIN POLE — full height, deck to balcony soffit, ON the slab edge line", tag: "ESTIMATE",
-      bounds: [-0.74, -0.66, -1.24, -1.16, 0.0, 3.0], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
-    { id: "join_infill", label: "Join infill — pergola roofline (2.6) up to slab edge (3.0), closes the height step", tag: "ESTIMATE",
-      bounds: [-0.74, -0.66, -1.2, -0.9, 2.6, 3.0], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    // ---- RED: pergola zone (roof ~2.8; over the planter/deck west of the court) ----
+    { id: "red_deck", label: "Pergola deck (red zone)", tag: "ESTIMATE",
+      bounds: [-1.5, 1.5, -6.2, -3.4, -0.05, 0.0], style: "floor", color: 0x9c4221 },
+    { id: "post_NE", label: "Pergola post NE", tag: "ESTIMATE",
+      bounds: [-1.5, -1.42, -3.48, -3.4, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "post_SE", label: "Pergola post SE", tag: "ESTIMATE",
+      bounds: [1.42, 1.5, -3.48, -3.4, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "post_SW", label: "Pergola post SW", tag: "ESTIMATE",
+      bounds: [1.42, 1.5, -6.2, -6.12, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "post_NW", label: "Pergola post NW", tag: "ESTIMATE",
+      bounds: [-1.5, -1.42, -6.2, -6.12, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_E", label: "Beam, bonsai side", tag: "ESTIMATE",
+      bounds: [-1.5, 1.5, -3.5, -3.4, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_W", label: "Beam, west side", tag: "ESTIMATE",
+      bounds: [-1.5, 1.5, -6.2, -6.1, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_N", label: "Beam, master-lounge side", tag: "ESTIMATE",
+      bounds: [-1.5, -1.4, -6.2, -3.4, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_S", label: "Beam, pavilion side", tag: "ESTIMATE",
+      bounds: [1.4, 1.5, -6.2, -3.4, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "spine_beam", label: "Central spine beam (retractable roof)", tag: "ESTIMATE",
+      bounds: [-0.05, 0.05, -6.2, -3.4, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "red_pvc_bonsai", label: "RED east face: clear PVC to the bonsai", tag: "ESTIMATE",
+      bounds: [-1.48, 1.48, -3.42, -3.40, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
+    { id: "red_face_south", label: "RED south face (material unstated — ask Richard)", tag: "ESTIMATE",
+      bounds: [1.46, 1.48, -6.2, -3.4, 0.0, 2.8], style: "pvc", color: 0xfbd38d },
+    { id: "lounge_wall", label: "Master lounge/bedroom wall (red + blue north side, schematic)", tag: "ESTIMATE",
+      bounds: [-1.56, -1.5, -9.0, -3.4, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
 
-    // ---- AC zoning: airlock doors (2026-08-29 ruling; POSITIONS CONCEPTUAL until capture) ----
-    // Airlock #1 sits IN THE UNDER-BALCONY CORRIDOR: a partition spanning bedroom wall to the
-    // corridor's pool-facing edge. The bedroom's own glass door is the airlock's second leaf —
-    // bedroom AC and enclosure AC never dump into each other. The corridor segment on the far
-    // side of the partition becomes the pool-viewing lobby.
-    { id: "airlock_partition", label: "Airlock partition — spans the corridor, bedroom wall to pool edge (POSITION CONCEPTUAL)", tag: "ESTIMATE",
-      bounds: [-3.62, -3.58, -1.2, 0.54, 0.0, 3.0], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
-    { id: "airlock_door", label: "Airlock door leaf (~0.9 m) in the partition", tag: "ESTIMATE",
-      bounds: [-3.64, -3.56, -0.9, 0.0, 0.0, 2.1], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 }
+    // ---- the join: pole mid-way on red's west face (Richard's pole, both annotations) ----
+    { id: "join_pole", label: "JOIN POLE — splits red's west face: north half meets blue, south half faces pool walkway", tag: "ESTIMATE",
+      bounds: [-0.04, 0.04, -6.24, -6.16, 0.0, 2.8], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    { id: "plate_bluered", label: "Aluminium plate, blue|red interface: closes 2.8 to 3.0 gap (fabricate)", tag: "ESTIMATE",
+      bounds: [-1.5, 0.0, -6.24, -6.16, 2.8, 3.0], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    { id: "red_west_blind", label: "Blue|red blind: drops from 2.8 under the plate (north half of red's west face)", tag: "ESTIMATE",
+      bounds: [-1.48, -0.04, -6.22, -6.18, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
+    { id: "red_outer_face", label: "RED outer face, south half: CURTAIN if walkway walkable, PVC window if not (H8)", tag: "ESTIMATE",
+      bounds: [0.04, 1.48, -6.22, -6.18, 0.0, 2.8], style: "pvc", color: 0xf687b3, edge: 0xf687b3 },
+
+    // ---- BLUE: pool-viewing zone (under balcony, full 3.0) ----
+    { id: "blue_deck", label: "Pool-viewing zone deck (blue)", tag: "ESTIMATE",
+      bounds: [-1.5, 0.0, -9.0, -6.2, -0.05, 0.0], style: "floor", color: 0x2c5282 },
+    { id: "blue_slab", label: "Balcony slab over blue zone (soffit 3.0)", tag: "ESTIMATE",
+      bounds: [-1.5, 0.0, -9.0, -6.2, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "blue_pvc_pool", label: "BLUE pool face: clear PVC to the plunge pool, full 3.0 (the viewing window)", tag: "ESTIMATE",
+      bounds: [-0.02, 0.02, -9.0, -6.2, 0.0, 3.0], style: "pvc", color: 0xbee3f8, edge: 0x63b3ed },
+
+    // ---- the airlock door: green|blue interface ----
+    { id: "airlock_partition", label: "AIRLOCK partition, green|blue interface (full 3.0)", tag: "ESTIMATE",
+      bounds: [-1.5, 0.0, -9.04, -8.96, 0.0, 3.0], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
+    { id: "airlock_door", label: "Airlock door leaf (~0.9 m)", tag: "ESTIMATE",
+      bounds: [-1.2, -0.3, -9.06, -8.94, 0.0, 2.1], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
+
+    // ---- GREEN: 1% mesh zone (west PES strip, under balcony) ----
+    { id: "green_deck", label: "1% mesh zone deck (green)", tag: "ESTIMATE",
+      bounds: [-1.5, 0.5, -10.6, -9.0, -0.05, 0.0], style: "floor", color: 0x276749 },
+    { id: "green_slab", label: "Balcony slab over green zone", tag: "ESTIMATE",
+      bounds: [-1.5, 0.5, -10.6, -9.0, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "green_mesh_W", label: "GREEN west face: 1% mesh, full 3.0", tag: "ESTIMATE",
+      bounds: [-1.5, 0.5, -10.62, -10.58, 0.0, 3.0], style: "pvc", color: 0xd6bcfa },
+    { id: "green_mesh_S", label: "GREEN south face: 1% mesh", tag: "ESTIMATE",
+      bounds: [0.48, 0.52, -10.6, -9.0, 0.0, 3.0], style: "pvc", color: 0xd6bcfa },
+
+    // ---- context: the plunge pool (orientation aid) ----
+    { id: "plunge_pool", label: "Plunge pool (schematic, for orientation)", tag: "ESTIMATE",
+      bounds: [0.1, 2.6, -9.6, -5.0, -0.35, -0.05], style: "floor", color: 0x2b6cb0 }
   ],
 
   superseded: [
-    // { date, key, old_value, replaced_by, why } — bonsai-style supersession log lives HERE, not scattered in prose
+    { date: "2026-08-29", what: "layout v1: pergola immediately west of the bay with 4 ziptrak faces; then a schematic corridor at x -5..-2.21",
+      replaced_by: "plan-annotated layout (green/blue/red zone chain per Richard's 20:49 markup)",
+      why: "v1 was drawn without the architect's plan; Richard's annotation fixed the real topology" },
+    { date: "2026-08-29", what: "pergola_clear_h 2.6 (RULING from sun-court-pavilion.md)",
+      replaced_by: "pergola_roof_h 2.8 (ESTIMATE)",
+      why: "Richard 2026-08-29: 'pergola might be 2.8m'; final at capture/RFQ" }
   ]
 };
 </script><script>
@@ -1290,12 +1316,12 @@ const SUNCOURT_SPEC = {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x161c27);
   const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.05, 100);
-  cam.position.set(-9.5, -10.0, 7.0); cam.up.set(0,0,1);
+  cam.position.set(9.5, -14.5, 9.0); cam.up.set(0,0,1);
   const renderer = new THREE.WebGLRenderer({antialias:true});
   renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(devicePixelRatio);
   document.body.appendChild(renderer.domElement);
   const ctl = new THREE.OrbitControls(cam, renderer.domElement);
-  ctl.target.set(-1.5, -1.0, 1.0);
+  ctl.target.set(-0.5, -5.0, 1.0);
   scene.add(new THREE.AmbientLight(0xffffff, .55));
   const sun = new THREE.DirectionalLight(0xfff8e7, .9); sun.position.set(4, -3, 8); scene.add(sun);
   const grid = new THREE.GridHelper(14, 28, 0x263042, 0x263042);
