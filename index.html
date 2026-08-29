@@ -1193,15 +1193,15 @@ const SUNCOURT_SPEC = {
     green_len:          { value: 1.6,  tag: "ESTIMATE", source: "west PES strip, scaled off plan; TAPE (capture F2)" },
     post_section:       { value: 0.08, tag: "ESTIMATE", source: "typical 80mm aluminium post; supplier detail" },
     glass_fence_h:      { value: 1.0,  tag: "ESTIMATE", source: "typical pool fence; MEASURE (capture item 5)" },
-    walkway_gap:        { value: 0.6,  tag: "ESTIMATE", source: "red outer face to plunge-pool edge — DECIDES curtain vs PVC (capture item H8)" }
+    walkway_gap:        { value: 0.6,  tag: "ESTIMATE", source: "red outer face to plunge-pool edge — material now ruled PVC ziptrak; still measure (H8) for traffic/door planning" }
   },
 
   // Zone materials (Richard's annotated-plan ruling, 2026-08-29):
   zones: {
     green: "1% mesh, full 3.0 m, under balcony — fan zone",
     blue:  "pool-viewing zone: clear PVC on the plunge-pool face, full 3.0 m, under balcony",
-    red:   "pergola ~2.8 m: clear PVC on the bonsai/east face; outer west face split by mid pole (north half = blue interface w/ plate; south half = curtain OR PVC pending walkway width H8)",
-    open_q: "red south face material unstated; green outer faces assumed 1% mesh all round"
+    red:   "pergola ~2.8 m: clear PVC ziptrak on bonsai/east, pool-side outer, and south faces; blue|red interface = AIRLOCK #2 (fixed PVC partition + door, no ziptrak) under the aluminium plate",
+    open_q: "green outer faces assumed 1% mesh all round; H8 gap measurement still wanted for traffic planning"
   },
 
   // Renderable elements. bounds = [x0,x1, y0,y1, z0,z1]. tag decides solid vs ghost.
@@ -1255,8 +1255,8 @@ const SUNCOURT_SPEC = {
       bounds: [-0.05, 0.05, -6.2, -3.4, 2.7, 2.8], style: "frame", color: 0xf7fafc },
     { id: "red_pvc_bonsai", label: "RED east face: clear PVC to the bonsai", tag: "ESTIMATE",
       bounds: [-1.48, 1.48, -3.42, -3.40, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
-    { id: "red_face_south", label: "RED south face (material unstated — ask Richard)", tag: "ESTIMATE",
-      bounds: [1.46, 1.48, -6.2, -3.4, 0.0, 2.8], style: "pvc", color: 0xfbd38d },
+    { id: "red_face_south", label: "RED south/pool face: clear PVC ziptrak (ruled 2026-08-29 21:11)", tag: "ESTIMATE",
+      bounds: [1.46, 1.48, -6.2, -3.4, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
     { id: "lounge_wall", label: "Master lounge/bedroom wall (red + blue north side, schematic)", tag: "ESTIMATE",
       bounds: [-1.56, -1.5, -9.0, -3.4, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
 
@@ -1265,10 +1265,12 @@ const SUNCOURT_SPEC = {
       bounds: [-0.04, 0.04, -6.24, -6.16, 0.0, 2.8], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
     { id: "plate_bluered", label: "Aluminium plate, blue|red interface: closes 2.8 to 3.0 gap (fabricate)", tag: "ESTIMATE",
       bounds: [-1.5, 0.0, -6.24, -6.16, 2.8, 3.0], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
-    { id: "red_west_blind", label: "Blue|red blind: drops from 2.8 under the plate (north half of red's west face)", tag: "ESTIMATE",
-      bounds: [-1.48, -0.04, -6.22, -6.18, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
-    { id: "red_outer_face", label: "RED outer face, south half: CURTAIN if walkway walkable, PVC window if not (H8)", tag: "ESTIMATE",
-      bounds: [0.04, 1.48, -6.22, -6.18, 0.0, 2.8], style: "pvc", color: 0xf687b3, edge: 0xf687b3 },
+    { id: "airlock2_partition", label: "AIRLOCK #2 — fixed PVC partition, blue|red interface (no ziptrak; plate closes 2.8-3.0 above)", tag: "ESTIMATE",
+      bounds: [-1.48, -0.04, -6.22, -6.18, 0.0, 2.8], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
+    { id: "airlock2_door", label: "Airlock #2 door leaf (~0.9 m), pergola <-> blue zone", tag: "ESTIMATE",
+      bounds: [-1.2, -0.3, -6.24, -6.16, 0.0, 2.1], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
+    { id: "red_outer_pvc", label: "RED outer face, pool side: clear PVC ziptrak (ruled 2026-08-29 21:11)", tag: "ESTIMATE",
+      bounds: [0.04, 1.48, -6.22, -6.18, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
 
     // ---- BLUE: pool-viewing zone (under balcony, full 3.0) ----
     { id: "blue_deck", label: "Pool-viewing zone deck (blue)", tag: "ESTIMATE",
