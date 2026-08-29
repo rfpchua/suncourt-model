@@ -1244,15 +1244,22 @@ const SUNCOURT_SPEC = {
       bounds: [-1.41, -1.39, -3.89, -0.91, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
     { id: "ziptrak_R", label: "Ziptrak, right side", tag: "ESTIMATE",
       bounds: [1.39, 1.41, -3.89, -0.91, 0.0, 2.6], style: "pvc", color: 0xfefcbf },
-    // ---- the wrap: ziptrak around the whole balcony-covered deck perimeter (2026-08-29 ruling) ----
-    { id: "wrap_track_pool", label: "Wrap track, pool face (balcony soffit, on slab edge)", tag: "ESTIMATE",
-      bounds: [-2.21, -0.74, -1.21, -1.19, 2.95, 3.0], style: "frame", color: 0xfbd38d },
-    { id: "wrap_ziptrak_pool", label: "Wrap ziptrak drop, pool face (clear PVC per 2026-08-14 note)", tag: "ESTIMATE",
+    // ---- the wrap: the UNDER-BALCONY corridor (2026-08-29 ruling; whole zone SCHEMATIC — no
+    // banked geometry exists for the deck strip beyond the court; capture items H fix all of it).
+    // Concept: the balcony slab continues over a deck corridor running from the court toward the
+    // master bedroom / plunge pool frontage. Ziptrak drops hang from its outer (pool-facing) edge.
+    { id: "corridor_slab", label: "Balcony slab over corridor (SCHEMATIC extent)", tag: "ESTIMATE",
+      bounds: [-5.0, -2.21, -1.2, 0.54, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "corridor_deck", label: "Under-balcony deck corridor (SCHEMATIC)", tag: "ESTIMATE",
+      bounds: [-5.0, -2.21, -1.2, 0.54, -0.05, 0.0], style: "floor", color: 0x8b6f47 },
+    { id: "bedroom_wall", label: "Master-bedroom frontage (SCHEMATIC — glass door somewhere along here)", tag: "ESTIMATE",
+      bounds: [-5.0, -2.21, 0.54, 0.6, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
+    { id: "wrap_ziptrak_pool", label: "Wrap ziptrak, corridor pool face (clear PVC per 2026-08-14 note)", tag: "ESTIMATE",
+      bounds: [-5.0, -2.21, -1.21, -1.19, 0.0, 2.95], style: "pvc", color: 0xfefcbf },
+    { id: "wrap_ziptrak_end", label: "Wrap ziptrak, corridor far end (material TBD by zone map)", tag: "ESTIMATE",
+      bounds: [-5.01, -4.99, -1.2, 0.54, 0.0, 2.95], style: "pvc", color: 0xd6bcfa },
+    { id: "wrap_ziptrak_court_pool", label: "Wrap ziptrak, court pool face (slab edge, joins pergola at the pole)", tag: "ESTIMATE",
       bounds: [-2.21, -0.74, -1.21, -1.19, 0.0, 2.95], style: "pvc", color: 0xfefcbf },
-    { id: "wrap_track_entrance", label: "Wrap track, entrance side (run + end TO MEASURE)", tag: "ESTIMATE",
-      bounds: [-2.21, -2.19, -1.2, 0.54, 2.95, 3.0], style: "frame", color: 0xfbd38d },
-    { id: "wrap_ziptrak_entrance", label: "Wrap ziptrak drop, entrance side (1% mesh per 2026-08-14 note)", tag: "ESTIMATE",
-      bounds: [-2.21, -2.19, -1.2, 0.54, 0.0, 2.95], style: "pvc", color: 0xd6bcfa },
 
     // ---- the join (Richard's annotated screenshot, 2026-08-29 18:29) ----
     { id: "join_pole", label: "JOIN POLE — full height, deck to balcony soffit, ON the slab edge line", tag: "ESTIMATE",
@@ -1261,13 +1268,14 @@ const SUNCOURT_SPEC = {
       bounds: [-0.74, -0.66, -1.2, -0.9, 2.6, 3.0], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
 
     // ---- AC zoning: airlock doors (2026-08-29 ruling; POSITIONS CONCEPTUAL until capture) ----
-    // Airlock #1: partition across the wrap corridor between the master-bedroom frontage and the pool
-    // edge. The bedroom's own glass door is the airlock's second door — bedroom AC and enclosure AC
-    // never dump into each other. The corridor segment beyond becomes the pool-viewing lobby.
-    { id: "airlock_partition", label: "Airlock partition — corridor divider, bedroom-to-pool-edge line (POSITION CONCEPTUAL)", tag: "ESTIMATE",
-      bounds: [-2.24, -2.20, -1.2, -0.54, 0.0, 2.95], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
+    // Airlock #1 sits IN THE UNDER-BALCONY CORRIDOR: a partition spanning bedroom wall to the
+    // corridor's pool-facing edge. The bedroom's own glass door is the airlock's second leaf —
+    // bedroom AC and enclosure AC never dump into each other. The corridor segment on the far
+    // side of the partition becomes the pool-viewing lobby.
+    { id: "airlock_partition", label: "Airlock partition — spans the corridor, bedroom wall to pool edge (POSITION CONCEPTUAL)", tag: "ESTIMATE",
+      bounds: [-3.62, -3.58, -1.2, 0.54, 0.0, 3.0], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
     { id: "airlock_door", label: "Airlock door leaf (~0.9 m) in the partition", tag: "ESTIMATE",
-      bounds: [-2.26, -2.18, -1.05, -0.60, 0.0, 2.1], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 }
+      bounds: [-3.64, -3.56, -0.9, 0.0, 0.0, 2.1], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 }
   ],
 
   superseded: [
@@ -1282,12 +1290,12 @@ const SUNCOURT_SPEC = {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x161c27);
   const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.05, 100);
-  cam.position.set(-8.0, -8.5, 6.0); cam.up.set(0,0,1);
+  cam.position.set(-9.5, -10.0, 7.0); cam.up.set(0,0,1);
   const renderer = new THREE.WebGLRenderer({antialias:true});
   renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(devicePixelRatio);
   document.body.appendChild(renderer.domElement);
   const ctl = new THREE.OrbitControls(cam, renderer.domElement);
-  ctl.target.set(-0.5, -1.3, 1.0);
+  ctl.target.set(-1.5, -1.0, 1.0);
   scene.add(new THREE.AmbientLight(0xffffff, .55));
   const sun = new THREE.DirectionalLight(0xfff8e7, .9); sun.position.set(4, -3, 8); scene.add(sun);
   const grid = new THREE.GridHelper(14, 28, 0x263042, 0x263042);
