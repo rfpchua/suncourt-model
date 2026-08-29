@@ -1258,7 +1258,16 @@ const SUNCOURT_SPEC = {
     { id: "join_pole", label: "JOIN POLE — full height, deck to balcony soffit, ON the slab edge line", tag: "ESTIMATE",
       bounds: [-0.74, -0.66, -1.24, -1.16, 0.0, 3.0], style: "frame", color: 0xfc8181 },
     { id: "join_infill", label: "Join infill — pergola roofline (2.6) up to slab edge (3.0), closes the height step", tag: "ESTIMATE",
-      bounds: [-0.74, -0.66, -1.2, -0.9, 2.6, 3.0], style: "frame", color: 0xfc8181 }
+      bounds: [-0.74, -0.66, -1.2, -0.9, 2.6, 3.0], style: "frame", color: 0xfc8181 },
+
+    // ---- AC zoning: airlock doors (2026-08-29 ruling; POSITIONS CONCEPTUAL until capture) ----
+    // Airlock #1: partition across the wrap corridor between the master-bedroom frontage and the pool
+    // edge. The bedroom's own glass door is the airlock's second door — bedroom AC and enclosure AC
+    // never dump into each other. The corridor segment beyond becomes the pool-viewing lobby.
+    { id: "airlock_partition", label: "Airlock partition — corridor divider, bedroom-to-pool-edge line (POSITION CONCEPTUAL)", tag: "ESTIMATE",
+      bounds: [-2.24, -2.20, -1.2, -0.54, 0.0, 2.95], style: "pvc", color: 0x81e6d9 },
+    { id: "airlock_door", label: "Airlock door leaf (~0.9 m) in the partition", tag: "ESTIMATE",
+      bounds: [-2.23, -2.21, -1.05, -0.60, 0.0, 2.1], style: "frame", color: 0x38b2ac }
   ],
 
   superseded: [
