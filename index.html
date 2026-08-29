@@ -1356,10 +1356,13 @@ const SUNCOURT_SPEC = {
 
     { id: "ac_duct_h", label: "AC ducts, horizontal: unit -> join pole along the partition top (insulated, behind the curtain pelmet line)", tag: "ESTIMATE",
       bounds: [-1.1, 0.0, -3.3, -3.24, 2.45, 2.6], style: "solid", color: 0xed8936, edge: 0xed8936 },
-    { id: "ac_duct_riser", label: "AC riser at the join pole: through the 2.7-3.0 plate chase, exits ABOVE the 2.8 roofline on the red side - open sky discharge (Richard's route, 22:54)", tag: "ESTIMATE",
-      bounds: [0.06, 0.2, -3.3, -3.16, 2.6, 3.25], style: "solid", color: 0xed8936, edge: 0xed8936 },
-    { id: "ac_cowl", label: "Rain cowl pair above the roofline: exhaust aimed up at ~3.25, intake mouth 0.5 m+ apart and lower - no re-breathing", tag: "ESTIMATE",
-      bounds: [0.02, 0.24, -3.34, -3.12, 3.25, 3.35], style: "solid", color: 0xed8936, edge: 0xed8936 },
+    { id: "ac_duct_riser", label: "AC riser at the join pole: up into the 2.7-3.0 plate chase (terminates at the plate louvres)", tag: "ESTIMATE",
+      bounds: [0.06, 0.2, -3.3, -3.16, 2.6, 3.0], style: "solid", color: 0xed8936, edge: 0xed8936 },
+
+    { id: "ac_louvre_exhaust", label: "EXHAUST louvre in the plate band (2.82-2.98, pole end): blows horizontally above the roofline; no cowl needed - a vertical opening sheds rain (Richard 23:05)", tag: "ESTIMATE",
+      bounds: [-0.35, -0.05, -3.39, -3.35, 2.82, 2.98], style: "solid", color: 0xc53030, edge: 0xc53030 },
+    { id: "ac_louvre_intake", label: "INTAKE louvre in the plate band (wall end, >=1 m from exhaust, opposed slats + insect mesh): condenser breathes open air above the roof", tag: "ESTIMATE",
+      bounds: [-1.45, -1.15, -3.39, -3.35, 2.82, 2.98], style: "solid", color: 0x2f855a, edge: 0x2f855a },
 
     // ---- context: the plunge pool (orientation aid) ----
     { id: "plunge_pool", label: "Plunge pool - north edge IS blue PVC line; west corner meets green south end", tag: "ESTIMATE",
