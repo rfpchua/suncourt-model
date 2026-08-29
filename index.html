@@ -1354,18 +1354,19 @@ const SUNCOURT_SPEC = {
     { id: "ac_unit", label: "Dual-hose portable AC - Richard's orange mark: clear of both slider openings", tag: "ESTIMATE",
       bounds: [-1.1, -0.55, -3.15, -2.7, 0.0, 0.7], style: "solid", color: 0xed8936, edge: 0xed8936 },
 
-    { id: "ac_duct_h", label: "AC ducts, horizontal: unit -> join pole along the partition top (insulated, behind the curtain pelmet line)", tag: "ESTIMATE",
-      bounds: [-1.1, 0.0, -3.3, -3.24, 2.45, 2.6], style: "solid", color: 0xed8936, edge: 0xed8936 },
-    { id: "ac_duct_riser", label: "AC riser at the join pole: up into the 2.7-3.0 plate chase (terminates at the plate louvres)", tag: "ESTIMATE",
-      bounds: [0.06, 0.2, -3.3, -3.16, 2.6, 3.0], style: "solid", color: 0xed8936, edge: 0xed8936 },
+    { id: "ac_duct_riser", label: "EXHAUST riser - Richard's routing (23:16): straight up from the unit in the wall corner, ONE bend at top, insulated + boxed (curtain stacks in front of it)", tag: "ESTIMATE",
+      bounds: [-1.35, -1.15, -3.3, -3.14, 0.7, 2.9], style: "solid", color: 0xed8936, edge: 0xed8936 },
 
-    { id: "ac_louvre_exhaust", label: "EXHAUST louvre in the plate band (2.82-2.98, pole end): blows horizontally above the roofline; no cowl needed - a vertical opening sheds rain (Richard 23:05)", tag: "ESTIMATE",
-      bounds: [-0.35, -0.05, -3.39, -3.35, 2.82, 2.98], style: "solid", color: 0xc53030, edge: 0xc53030 },
+    { id: "ac_louvre_exhaust", label: "EXHAUST louvre in the plate band, above the unit corner - MUST open on the RED side above the 2.8 roofline (never into blue's ceiling space)", tag: "ESTIMATE",
+      bounds: [-1.4, -1.1, -3.39, -3.35, 2.82, 2.98], style: "solid", color: 0xc53030, edge: 0xc53030 },
 
     { id: "ac_intake_duct", label: "INTAKE duct: floor-level run along the north wall to the bonsai face north end bay (insulation optional - it carries ambient air)", tag: "ESTIMATE",
       bounds: [-1.45, -1.3, -2.7, -0.6, 0.1, 0.25], style: "solid", color: 0x2f855a, edge: 0x2f855a },
     { id: "ac_intake_grommet", label: "INTAKE grommet LOW in the bonsai-side PVC, north end bay: sips open-sky well air; no heat enters the well, tree unaffected (23:07 ruling: intake low+far, never in the exhaust band)", tag: "ESTIMATE",
       bounds: [-1.75, -1.55, -0.58, -0.5, 0.15, 0.35], style: "solid", color: 0x2f855a, edge: 0x2f855a },
+
+    { id: "ac_condensate", label: "Condensate drain hose: unit base -> deck drain, continuous fall (no bucket)", tag: "ESTIMATE",
+      bounds: [-1.0, -0.95, -3.1, -2.0, 0.02, 0.08], style: "solid", color: 0x63b3ed, edge: 0x63b3ed },
 
     // ---- context: the plunge pool (orientation aid) ----
     { id: "plunge_pool", label: "Plunge pool - north edge IS blue PVC line; west corner meets green south end", tag: "ESTIMATE",
