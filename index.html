@@ -1200,7 +1200,7 @@ const SUNCOURT_SPEC = {
   zones: {
     green: "1% mesh, full 3.0 m, under balcony - fan zone; a LONG strip along the bedroom west side, extending well north past the bedroom (extent = capture)",
     blue:  "pool-viewing zone: clear PVC on the plunge-pool face AT THE WATER EDGE (no walkway between), full 3.0 m, under balcony",
-    red:   "pergola ~2.8 m: clear PVC ziptrak on bonsai/east, pool-side outer, and south faces; blue|red interface = AIRLOCK #2 (fixed PVC partition + door, no ziptrak) under the aluminium plate",
+    red:   "pergola ~2.8 m: clear PVC ziptrak on bonsai/east, pool-side outer, and south faces; blue|red interface v2 = full-width curtain rail (privacy, parts at the join pole) + clear-PVC seal blind on the blue half dropping only in AC mode; accordion door at this line DROPPED; plate still closes 2.8-3.0",
     poles: "ziptrak guide poles at every wall-less span end + mid-bay dividers on runs over ~4 m; deck-to-soffit; RFQ: posts and tracks are part of the ziptrak package, colour-matched", doors: "both airlock doors are ACCORDION type, FLOOR-TO-CEILING (door #1 full 3.0 to soffit; door #2 to the 2.8 pergola roofline, plate above), fold-and-stack left-right, top-hung with minimal/recessed floor guide — RFQ: folding-stacking clear-panel door, NOT hinged", open_q: "green outer faces assumed 1% mesh all round; H8 gap measurement still wanted for traffic planning"
   },
 
@@ -1263,16 +1263,16 @@ const SUNCOURT_SPEC = {
       bounds: [-0.04, 0.04, -3.38, -3.3, 0, 2.8], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
     { id: "plate_bluered", label: "Aluminium plate, blue|red interface: closes 2.8 to 3.0 gap (fabricate)", tag: "ESTIMATE",
       bounds: [-1.5, 0, -3.38, -3.3, 2.8, 3], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
-    { id: "airlock2_partition", label: "AIRLOCK #2 — fixed PVC partition, blue|red interface (no ziptrak; plate closes 2.8-3.0 above)", tag: "ESTIMATE",
-      bounds: [-1.48, -0.04, -3.36, -3.32, 0, 2.8], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
-    { id: "airlock2_door_p1", label: "Airlock #2 ACCORDION door, pergola <-> blue (slides left-right, stacks at the side)", tag: "ESTIMATE",
-      bounds: [-1.3, -1.06, -3.42, -3.3, 0, 2.8], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
-    { id: "airlock2_door_p2", label: "Airlock #2 accordion panel", tag: "ESTIMATE",
-      bounds: [-1.06, -0.82, -3.34, -3.22, 0, 2.8], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
-    { id: "airlock2_door_p3", label: "Airlock #2 accordion panel", tag: "ESTIMATE",
-      bounds: [-0.82, -0.58, -3.42, -3.3, 0, 2.8], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
-    { id: "airlock2_door_p4", label: "Airlock #2 accordion panel", tag: "ESTIMATE",
-      bounds: [-0.58, -0.34, -3.34, -3.22, 0, 2.8], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
+
+    // ---- blue|red interface v2 (2026-08-29 22:19): curtain rail + seal blind, accordion door dropped ----
+    { id: "curtain_rail", label: "Curtain rail - full pergola west edge at 2.8, curtains part at the join pole (privacy layer, everyday passage)", tag: "ESTIMATE",
+      bounds: [-1.48, 1.48, -3.36, -3.32, 2.76, 2.8], style: "solid", color: 0xe2e8f0, edge: 0xb794f4 },
+    { id: "curtain_left", label: "Curtain, north panel (stacks toward the lounge wall)", tag: "ESTIMATE",
+      bounds: [-1.46, -1.0, -3.37, -3.31, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
+    { id: "curtain_right", label: "Curtain, south panel (stacks toward the SW post)", tag: "ESTIMATE",
+      bounds: [1.0, 1.46, -3.37, -3.31, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
+    { id: "ziptrak_bluered", label: "Blue|red SEAL blind: clear PVC ziptrak, drops from 2.8 only when cooling (replaces the fixed partition + accordion door)", tag: "ESTIMATE",
+      bounds: [-1.48, -0.04, -3.44, -3.4, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
     { id: "red_outer_pvc", label: "RED outer face, pool side: clear PVC ziptrak (ruled 2026-08-29 21:11)", tag: "ESTIMATE",
       bounds: [0.04, 1.48, -3.36, -3.32, 0, 2.8], style: "pvc", color: 0xfefcbf },
 
