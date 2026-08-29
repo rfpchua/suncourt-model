@@ -1198,8 +1198,8 @@ const SUNCOURT_SPEC = {
 
   // Zone materials (Richard's annotated-plan ruling, 2026-08-29):
   zones: {
-    green: "1% mesh, full 3.0 m, under balcony — fan zone",
-    blue:  "pool-viewing zone: clear PVC on the plunge-pool face, full 3.0 m, under balcony",
+    green: "1% mesh, full 3.0 m, under balcony - fan zone; a LONG strip along the bedroom west side, extending well north past the bedroom (extent = capture)",
+    blue:  "pool-viewing zone: clear PVC on the plunge-pool face AT THE WATER EDGE (no walkway between), full 3.0 m, under balcony",
     red:   "pergola ~2.8 m: clear PVC ziptrak on bonsai/east, pool-side outer, and south faces; blue|red interface = AIRLOCK #2 (fixed PVC partition + door, no ziptrak) under the aluminium plate",
     doors: "both airlock doors are ACCORDION type, FLOOR-TO-CEILING (door #1 full 3.0 to soffit; door #2 to the 2.8 pergola roofline, plate above), fold-and-stack left-right, top-hung with minimal/recessed floor guide — RFQ: folding-stacking clear-panel door, NOT hinged", open_q: "green outer faces assumed 1% mesh all round; H8 gap measurement still wanted for traffic planning"
   },
@@ -1283,7 +1283,7 @@ const SUNCOURT_SPEC = {
       bounds: [-1.5, 0.0, -9.0, -6.2, -0.05, 0.0], style: "floor", color: 0x2c5282 },
     { id: "blue_slab", label: "Balcony slab over blue zone (soffit 3.0)", tag: "ESTIMATE",
       bounds: [-1.5, 0.0, -9.0, -6.2, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
-    { id: "blue_pvc_pool", label: "BLUE pool face: clear PVC to the plunge pool, full 3.0 (the viewing window)", tag: "ESTIMATE",
+    { id: "blue_pvc_pool", label: "BLUE pool face: clear PVC AT THE WATER EDGE - blue opens directly onto the plunge pool (2026-08-29 22:00)", tag: "ESTIMATE",
       bounds: [-0.02, 0.02, -9.0, -6.2, 0.0, 3.0], style: "pvc", color: 0xbee3f8, edge: 0x63b3ed },
 
     // ---- the airlock door: green|blue interface ----
@@ -1299,18 +1299,22 @@ const SUNCOURT_SPEC = {
       bounds: [-0.58, -0.34, -9.02, -8.90, 0.0, 3.0], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
 
     // ---- GREEN: 1% mesh zone (west PES strip, under balcony) ----
-    { id: "green_deck", label: "1% mesh zone deck (green)", tag: "ESTIMATE",
-      bounds: [-1.5, 0.5, -10.6, -9.0, -0.05, 0.0], style: "floor", color: 0x276749 },
-    { id: "green_slab", label: "Balcony slab over green zone", tag: "ESTIMATE",
-      bounds: [-1.5, 0.5, -10.6, -9.0, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
-    { id: "green_mesh_W", label: "GREEN west face: 1% mesh, full 3.0", tag: "ESTIMATE",
-      bounds: [-1.5, 0.5, -10.62, -10.58, 0.0, 3.0], style: "pvc", color: 0xd6bcfa },
-    { id: "green_mesh_S", label: "GREEN south face: 1% mesh", tag: "ESTIMATE",
-      bounds: [0.48, 0.52, -10.6, -9.0, 0.0, 3.0], style: "pvc", color: 0xd6bcfa },
+    { id: "green_deck", label: "1% mesh zone deck (green) — long strip, extends NORTH past the bedroom (2026-08-29 22:00)", tag: "ESTIMATE",
+      bounds: [-4.5, 0.0, -10.6, -9.0, -0.05, 0.0], style: "floor", color: 0x276749 },
+    { id: "green_slab", label: "Balcony slab over green zone (coverage extent TO CONFIRM)", tag: "ESTIMATE",
+      bounds: [-4.5, 0.0, -10.6, -9.0, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "green_mesh_W", label: "GREEN west face: 1% mesh, full 3.0, full run", tag: "ESTIMATE",
+      bounds: [-4.5, 0.0, -10.62, -10.58, 0.0, 3.0], style: "pvc", color: 0xd6bcfa },
+    { id: "green_mesh_N", label: "GREEN north end face: 1% mesh", tag: "ESTIMATE",
+      bounds: [-4.52, -4.48, -10.6, -9.0, 0.0, 3.0], style: "pvc", color: 0xd6bcfa },
+    { id: "green_mesh_S", label: "GREEN south end face: 1% mesh (at the pool west corner)", tag: "ESTIMATE",
+      bounds: [-0.02, 0.02, -10.6, -9.0, 0.0, 3.0], style: "pvc", color: 0xd6bcfa },
+    { id: "bedroom_wall_W", label: "Master bedroom WEST wall (green inner side, schematic)", tag: "ESTIMATE",
+      bounds: [-4.5, -1.5, -9.0, -8.94, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
 
     // ---- context: the plunge pool (orientation aid) ----
-    { id: "plunge_pool", label: "Plunge pool (schematic, for orientation)", tag: "ESTIMATE",
-      bounds: [0.1, 2.6, -9.6, -5.0, -0.35, -0.05], style: "floor", color: 0x2b6cb0 }
+    { id: "plunge_pool", label: "Plunge pool - north edge IS blue PVC line; west corner meets green south end", tag: "ESTIMATE",
+      bounds: [0.05, 2.6, -9.0, -6.0, -0.35, -0.05], style: "floor", color: 0x2b6cb0 }
   ],
 
   superseded: [
