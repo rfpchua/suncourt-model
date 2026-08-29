@@ -1305,7 +1305,7 @@ const SUNCOURT_SPEC = {
       bounds: [-2.9, 0, -7.74, -6.14, 3, 3.3], style: "solid", color: 0xa0aec0 },
     { id: "green_mesh_W", label: "GREEN west face: 1% mesh, full 3.0, full run", tag: "ESTIMATE",
       bounds: [-2.9, 0, -7.76, -7.72, 0, 3], style: "pvc", color: 0xd6bcfa },
-    { id: "green_mesh_N", label: "GREEN north end face: 1% mesh", tag: "ESTIMATE",
+    { id: "green_mesh_N", label: "GREEN north end face: 1% mesh - THE ENTRY: pull this ziptrak up to walk in from outside (no house door into green)", tag: "ESTIMATE",
       bounds: [-2.92, -2.88, -7.74, -6.14, 0, 3], style: "pvc", color: 0xd6bcfa },
     { id: "green_mesh_S", label: "GREEN south end face: 1% mesh (at the pool west corner)", tag: "ESTIMATE",
       bounds: [-0.02, 0.02, -7.74, -6.14, 0, 3], style: "pvc", color: 0xd6bcfa },
@@ -1329,15 +1329,12 @@ const SUNCOURT_SPEC = {
     // ---- house doors into the zones (2026-08-29 22:22 + 22:25 correction, Richard): each is a
     // TWO-PANEL SLIDER SPANNING ITS ENTIRE WALL SECTION - one panel slides behind the other, so the
     // clear opening = half the facade. Positions SCHEMATIC until capture. Default mode = all zones
-    // + house doors OPEN, the whole enclosure flows as one space with the MBR and bar.
+    // + house doors OPEN, one flowing space. Green has NO house door - outside entry is through
+    // its own north mesh ziptrak, pulled up (22:27 correction).
     { id: "door_mbr_blue", label: "MBR slider -> BLUE: two-panel, spans the full bedroom wall section (opening = half)", tag: "ESTIMATE",
       bounds: [-1.53, -1.47, -6.14, -3.34, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
     { id: "door_mbr_mullion", label: "MBR slider mid mullion", tag: "ESTIMATE",
       bounds: [-1.54, -1.46, -4.77, -4.71, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
-    { id: "door_apt_green", label: "Apartment entrance -> GREEN: two-panel slider, full wall section (opening = half)", tag: "ESTIMATE",
-      bounds: [-2.9, -1.5, -6.17, -6.11, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
-    { id: "door_apt_mullion", label: "Apartment slider mid mullion", tag: "ESTIMATE",
-      bounds: [-2.23, -2.17, -6.18, -6.10, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
     { id: "door_dbk_red", label: "Bar/DBK slider -> RED: two-panel, spans the full lounge wall section (opening = half)", tag: "ESTIMATE",
       bounds: [-1.53, -1.47, -3.34, -0.54, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
     { id: "door_dbk_mullion", label: "Bar/DBK slider mid mullion", tag: "ESTIMATE",
