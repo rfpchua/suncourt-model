@@ -1336,11 +1336,11 @@ const SUNCOURT_SPEC = {
     { id: "green_slab", label: "Balcony slab over green zone (coverage extent TO CONFIRM)", tag: "ESTIMATE",
       bounds: [-2.9, 0, -7.74, -6.14, 3, 3.3], style: "solid", color: 0xa0aec0 },
     { id: "green_mesh_W", label: "GREEN west face: 1% mesh, full 3.0, full run", tag: "ESTIMATE",
-      bounds: [-2.9, 0, -7.76, -7.72, 0, 3], style: "pvc", color: 0xd6bcfa },
+      bounds: [-2.9, 0, -7.76, -7.72, 0, 3], style: "mesh", color: 0xd6bcfa },
     { id: "green_mesh_N", label: "GREEN north end face: 1% mesh - THE ENTRY: pull this ziptrak up to walk in from outside (no house door into green)", tag: "ESTIMATE",
-      bounds: [-2.92, -2.88, -7.74, -6.14, 0, 3], style: "pvc", color: 0xd6bcfa },
+      bounds: [-2.92, -2.88, -7.74, -6.14, 0, 3], style: "mesh", color: 0xd6bcfa },
     { id: "green_mesh_S", label: "GREEN south end face: 1% mesh (at the pool west corner)", tag: "ESTIMATE",
-      bounds: [-0.02, 0.02, -7.74, -6.14, 0, 3], style: "pvc", color: 0xd6bcfa },
+      bounds: [-0.02, 0.02, -7.74, -6.14, 0, 3], style: "mesh", color: 0xd6bcfa },
     { id: "bedroom_wall_W", label: "Master bedroom WEST wall (green inner side, schematic)", tag: "ESTIMATE",
       bounds: [-4.5, -1.5, -6.14, -6.08, 0, 3], style: "glass", color: 0x90cdf4 },
 
@@ -1462,6 +1462,7 @@ const SUNCOURT_SPEC = {
     const c = el.color ?? 0xcccccc;
     if (el.style === 'glass') return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity: ghost? .10 : .18, side:THREE.DoubleSide});
     if (el.style === 'pvc')   return new THREE.MeshPhongMaterial({color: 0xbfe3f2, transparent:true, opacity: ghost? .14 : .28, shininess:100, side:THREE.DoubleSide});
+    if (el.style === 'mesh')  return new THREE.MeshPhongMaterial({color: 0xe9e2d3, transparent:true, opacity: ghost? .25 : .5, shininess:4, side:THREE.DoubleSide});
     if (el.style === 'canopy')return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity:.45});
     return new THREE.MeshPhongMaterial({color:c, transparent:ghost, opacity: ghost? .22 : 1.0});
   }
@@ -1515,10 +1516,15 @@ const SUNCOURT_SPEC = {
       return new THREE.MeshPhongMaterial({map: tex});
     }
     if (el.style === 'glass') return new THREE.MeshPhongMaterial({color: 0x9fc8e8, transparent:true, opacity:.30, shininess:95, side:THREE.DoubleSide});
+    if (el.style === 'mesh'){
+      // 1% antique-white mesh: fabric, near-opaque, matte
+      return new THREE.MeshPhongMaterial({color: 0xf2ede0, transparent:true, opacity:.88,
+        shininess:2, side:THREE.DoubleSide});
+    }
     if (el.style === 'pvc'){
-      // thin clear plastic: clean milky blue, high sheen, NO texture (box UVs smear patterns)
-      return new THREE.MeshPhongMaterial({color: 0xcfe9f5, transparent:true, opacity:.38,
-        shininess:140, specular: new THREE.Color(0xffffff), side:THREE.DoubleSide});
+      // CLEAR PVC: nearly invisible, the faintest milky plastic glint
+      return new THREE.MeshPhongMaterial({color: 0xf4fafd, transparent:true, opacity:.15,
+        shininess:170, specular: new THREE.Color(0xffffff), side:THREE.DoubleSide});
     }
     const c = el.color ?? 0xcccccc;
     return new THREE.MeshPhongMaterial({color:c, shininess: 12});
