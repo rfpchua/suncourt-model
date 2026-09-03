@@ -1461,7 +1461,7 @@ const SUNCOURT_SPEC = {
   function makeMat(el, ghost){
     const c = el.color ?? 0xcccccc;
     if (el.style === 'glass') return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity: ghost? .10 : .18, side:THREE.DoubleSide});
-    if (el.style === 'pvc')   return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity: ghost? .12 : .25, side:THREE.DoubleSide});
+    if (el.style === 'pvc')   return new THREE.MeshPhongMaterial({color: 0xbfe3f2, transparent:true, opacity: ghost? .14 : .28, shininess:100, side:THREE.DoubleSide});
     if (el.style === 'canopy')return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity:.45});
     return new THREE.MeshPhongMaterial({color:c, transparent:ghost, opacity: ghost? .22 : 1.0});
   }
@@ -1516,15 +1516,20 @@ const SUNCOURT_SPEC = {
     }
     if (el.style === 'glass') return new THREE.MeshPhongMaterial({color: 0x9fc8e8, transparent:true, opacity:.30, shininess:95, side:THREE.DoubleSide});
     if (el.style === 'pvc'){
+      // thin clear plastic: milky blue tint, high sheen, faint panel seams
       const tex = canvasTex(ctx => {
-        ctx.fillStyle = '#f4ecd9'; ctx.fillRect(0,0,256,256);
-        ctx.strokeStyle = '#cdbf9d'; ctx.lineWidth = 4;
+        const grad = ctx.createLinearGradient(0,0,256,256);
+        grad.addColorStop(0,'#e8f4fa'); grad.addColorStop(.5,'#d2e9f4'); grad.addColorStop(1,'#e8f4fa');
+        ctx.fillStyle = grad; ctx.fillRect(0,0,256,256);
+        ctx.strokeStyle = 'rgba(140,180,205,.55)'; ctx.lineWidth = 3;
         for (let i = 0; i <= 4; i++){ ctx.beginPath(); ctx.moveTo(i*64,0); ctx.lineTo(i*64,256); ctx.stroke(); }
-        ctx.fillStyle = '#b8a878'; ctx.fillRect(0,0,256,10); ctx.fillRect(0,246,256,10);
+        ctx.fillStyle = 'rgba(255,255,255,.5)';
+        ctx.fillRect(12,0,6,256); ctx.fillRect(150,0,10,256);
       });
       const sz = el.bounds; const span = Math.max(sz[1]-sz[0], sz[3]-sz[2], .5);
       tex.repeat.set(Math.ceil(span/0.7), 1);
-      return new THREE.MeshPhongMaterial({map: tex, transparent:true, opacity:.5, shininess:70, side:THREE.DoubleSide});
+      return new THREE.MeshPhongMaterial({map: tex, transparent:true, opacity:.38, shininess:140,
+        specular: new THREE.Color(0xdff2ff), side:THREE.DoubleSide});
     }
     const c = el.color ?? 0xcccccc;
     return new THREE.MeshPhongMaterial({color:c, shininess: 12});
