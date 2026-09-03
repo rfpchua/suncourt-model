@@ -1219,8 +1219,38 @@ const SUNCOURT_SPEC = {
       bounds: [-2.21, -1.5, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
     { id: "soffit_return_R", label: "Soffit return S", tag: "MEASURED",
       bounds: [1.5, 2.21, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
-    { id: "tree_envelope",  label: "Bonsai envelope (1.93 x 1.5 x 2.1 over pot)", tag: "MEASURED",
-      bounds: [-0.965, 0.965, -0.75, 0.75, -0.05, 2.05], style: "canopy", color: 0x48bb78 },
+    // ---- bonsai: trunk + pads from the bonsai model spec (same coordinate frame),
+    // pads clipped at y=-0.54 = the PVC line (the L5/M3/T5 trim ruling, rendered as-trimmed) ----
+    { id: "tree_trunk", label: "Bonsai trunk", tag: "MEASURED",
+      bounds: [-0.09, 0.09, -0.05, 0.13, -0.05, 1.55], style: "solid", color: 0x6b4a2b },
+    { id: "pad_L1", label: "Bonsai pad L1", tag: "MEASURED",
+      bounds: [0.20, 0.50, -0.10, 0.30, 0.55, 0.85], style: "canopy", color: 0x48bb78 },
+    { id: "pad_L2", label: "Bonsai pad L2", tag: "MEASURED",
+      bounds: [0.40, 0.80, -0.08, 0.48, 0.35, 0.75], style: "canopy", color: 0x48bb78 },
+    { id: "pad_L3", label: "Bonsai pad L3", tag: "MEASURED",
+      bounds: [0.65, 1.05, -0.15, 0.45, 0.17, 0.62], style: "canopy", color: 0x48bb78 },
+    { id: "pad_L4", label: "Bonsai pad L4", tag: "MEASURED",
+      bounds: [-0.88, -0.52, -0.20, 0.30, 0.35, 0.65], style: "canopy", color: 0x48bb78 },
+    { id: "pad_L5", label: "Bonsai pad L5", tag: "MEASURED",
+      bounds: [-0.20, 0.10, -0.54, -0.28, 0.30, 0.60], style: "canopy", color: 0x48bb78 },
+    { id: "pad_L6", label: "Bonsai pad L6", tag: "MEASURED",
+      bounds: [-0.62, -0.28, 0.12, 0.53, 0.43, 0.77], style: "canopy", color: 0x48bb78 },
+    { id: "pad_M1", label: "Bonsai pad M1", tag: "MEASURED",
+      bounds: [0.38, 0.73, -0.20, 0.40, 0.95, 1.25], style: "canopy", color: 0x48bb78 },
+    { id: "pad_M2", label: "Bonsai pad M2", tag: "MEASURED",
+      bounds: [-0.80, -0.40, -0.23, 0.33, 0.95, 1.15], style: "canopy", color: 0x48bb78 },
+    { id: "pad_M3", label: "Bonsai pad M3", tag: "MEASURED",
+      bounds: [-0.25, 0.05, -0.54, -0.22, 1.02, 1.27], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T1", label: "Bonsai pad T1", tag: "MEASURED",
+      bounds: [-0.25, 0.25, -0.38, 0.38, 1.75, 2.05], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T2", label: "Bonsai pad T2", tag: "MEASURED",
+      bounds: [0.25, 0.65, -0.23, 0.43, 1.42, 1.77], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T3", label: "Bonsai pad T3", tag: "MEASURED",
+      bounds: [-0.78, -0.33, -0.25, 0.35, 1.57, 1.82], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T4", label: "Bonsai pad T4", tag: "MEASURED",
+      bounds: [-0.02, 0.23, 0.18, 0.53, 1.35, 1.55], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T5", label: "Bonsai pad T5", tag: "MEASURED",
+      bounds: [-0.17, 0.07, -0.54, -0.18, 1.40, 1.60], style: "canopy", color: 0x48bb78 },
     { id: "pot",            label: "Pot + platform", tag: "MEASURED",
       bounds: [-0.42, 0.42, -0.42, 0.42, -0.67, -0.05], style: "solid", color: 0x975a16 },
     { id: "balcony_slab_bay", label: "Balcony slab over bay area, dining-side half (edge TO CONFIRM)", tag: "RULING",
@@ -1484,8 +1514,18 @@ const SUNCOURT_SPEC = {
       const tex = texLeaf(); tex.repeat.set(2,2);
       return new THREE.MeshPhongMaterial({map: tex});
     }
-    if (el.style === 'glass') return new THREE.MeshPhongMaterial({color: 0x9fc8e8, transparent:true, opacity:.32, shininess:90, side:THREE.DoubleSide});
-    if (el.style === 'pvc')   return new THREE.MeshPhongMaterial({color: 0xdfe8ee, transparent:true, opacity:.28, shininess:60, side:THREE.DoubleSide});
+    if (el.style === 'glass') return new THREE.MeshPhongMaterial({color: 0x9fc8e8, transparent:true, opacity:.30, shininess:95, side:THREE.DoubleSide});
+    if (el.style === 'pvc'){
+      const tex = canvasTex(ctx => {
+        ctx.fillStyle = '#f4ecd9'; ctx.fillRect(0,0,256,256);
+        ctx.strokeStyle = '#cdbf9d'; ctx.lineWidth = 4;
+        for (let i = 0; i <= 4; i++){ ctx.beginPath(); ctx.moveTo(i*64,0); ctx.lineTo(i*64,256); ctx.stroke(); }
+        ctx.fillStyle = '#b8a878'; ctx.fillRect(0,0,256,10); ctx.fillRect(0,246,256,10);
+      });
+      const sz = el.bounds; const span = Math.max(sz[1]-sz[0], sz[3]-sz[2], .5);
+      tex.repeat.set(Math.ceil(span/0.7), 1);
+      return new THREE.MeshPhongMaterial({map: tex, transparent:true, opacity:.5, shininess:70, side:THREE.DoubleSide});
+    }
     const c = el.color ?? 0xcccccc;
     return new THREE.MeshPhongMaterial({color:c, shininess: 12});
   }
