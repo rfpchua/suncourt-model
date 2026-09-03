@@ -1215,14 +1215,10 @@ const SUNCOURT_SPEC = {
       bounds: [-1.98, 1.98, 0.54, 0.64, 0, 0.52], style: "solid", color: 0x718096 },
     { id: "foyer_glass",    label: "Foyer glazing (y=+0.54)", tag: "MEASURED",
       bounds: [-1.98, 1.98, 0.53, 0.55, 0.52, 3], style: "glass", color: 0x63b3ed },
-    { id: "return_glass_L", label: "Side-return glass (north end)", tag: "MEASURED",
-      bounds: [-2.22, -2.2, -0.54, 0.54, 0, 3], style: "glass", color: 0x63b3ed },
-    { id: "return_glass_R", label: "Side-return glass (south end)", tag: "MEASURED",
-      bounds: [2.2, 2.22, -0.54, 0.54, 0, 3], style: "glass", color: 0x63b3ed },
     { id: "soffit_return_L", label: "Soffit return N", tag: "MEASURED",
-      bounds: [-2.21, -1.98, -0.54, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
+      bounds: [-2.21, -1.5, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
     { id: "soffit_return_R", label: "Soffit return S", tag: "MEASURED",
-      bounds: [1.98, 2.21, -0.54, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
+      bounds: [1.5, 2.21, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
     { id: "tree_envelope",  label: "Bonsai envelope (1.93 x 1.5 x 2.1 over pot)", tag: "MEASURED",
       bounds: [-0.965, 0.965, -0.75, 0.75, -0.05, 2.05], style: "canopy", color: 0x48bb78 },
     { id: "pot",            label: "Pot + platform", tag: "MEASURED",
@@ -1347,10 +1343,14 @@ const SUNCOURT_SPEC = {
       bounds: [-1.54, -1.46, -1.97, -1.91, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
 
 
-    { id: "wall_bay_north", label: "White wall, bay north end - window flush in this wall; pergola end reaches it (Richard 09-03)", tag: "RULING",
-      bounds: [-2.21, -1.5, -0.54, 0.64, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
-    { id: "wall_bay_south", label: "White wall, bay south end (mirror; pier by the bar door)", tag: "RULING",
-      bounds: [1.5, 2.21, -0.54, 0.64, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
+    { id: "wall_bay_north", label: "White facade wall, north of the well opening - FLUSH plane; pergola end reaches this wall (Richard 09-03)", tag: "RULING",
+      bounds: [-2.21, -1.5, -0.62, -0.54, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
+    { id: "window_north", label: "Window flush IN the north wall", tag: "RULING",
+      bounds: [-2.08, -1.58, -0.63, -0.55, 0.52, 2.9], style: "glass", color: 0x63b3ed },
+    { id: "wall_bay_south", label: "White facade wall, south of the well opening (bar-door side pier wall)", tag: "RULING",
+      bounds: [1.5, 2.21, -0.62, -0.54, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
+    { id: "window_south", label: "Window flush IN the south wall", tag: "RULING",
+      bounds: [1.58, 2.08, -0.63, -0.55, 0.52, 2.9], style: "glass", color: 0x63b3ed },
 
     // ---- finishing details (2026-08-29 22:46, Richard) ----
     { id: "outer_shade_blue", label: "Electric woven shade OUTSIDE blue pool-face PVC - street-lamp blackout, lowered at night (own property, blinds-precedent allowed)", tag: "ESTIMATE",
@@ -1393,6 +1393,9 @@ const SUNCOURT_SPEC = {
   ],
 
   superseded: [
+    { date: "2026-09-03", what: "side-return glass panes protruding at x=+/-2.21 with open notches to the walls",
+      replaced_by: "flush deck-facing facade: white wall each side of the well opening with windows set IN the wall plane; pergola runs to the wall",
+      why: "Richard (twice) + Fenny's photos: wall and window are flush; verify glazing detail at capture" },
     { date: "2026-08-29", what: "2.9 m open court_deck between the bay and the pergola",
       replaced_by: "zone chain starts at the bay edge (~y -0.54); court_depth = 0",
       why: "Richard: the gap does not exist - bonsai then pergola directly; matches pads-trimmed-to-the-pool-line intent" },
