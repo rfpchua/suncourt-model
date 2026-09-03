@@ -1347,8 +1347,10 @@ const SUNCOURT_SPEC = {
       bounds: [-1.54, -1.46, -1.97, -1.91, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
 
 
-    { id: "wall_bay_closure", label: "North wall segment - FLUSH with the bay window, no gap (Richard confirmed 22:54)", tag: "RULING",
-      bounds: [-2.21, -1.5, -0.6, -0.54, 0.0, 3.0], style: "solid", color: 0xcbd5e0 },
+    { id: "wall_bay_north", label: "White wall, bay north end - window flush in this wall; pergola end reaches it (Richard 09-03)", tag: "RULING",
+      bounds: [-2.21, -1.5, -0.54, 0.64, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
+    { id: "wall_bay_south", label: "White wall, bay south end (mirror; pier by the bar door)", tag: "RULING",
+      bounds: [1.5, 2.21, -0.54, 0.64, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
 
     // ---- finishing details (2026-08-29 22:46, Richard) ----
     { id: "outer_shade_blue", label: "Electric woven shade OUTSIDE blue pool-face PVC - street-lamp blackout, lowered at night (own property, blinds-precedent allowed)", tag: "ESTIMATE",
@@ -1368,6 +1370,22 @@ const SUNCOURT_SPEC = {
 
     { id: "ac_hose_to_pole", label: "Exhaust hose: unit -> low opening in the vent column (insulated; ~1 m; 2 bends total)", tag: "ESTIMATE",
       bounds: [-1.0, -0.1, -3.28, -3.14, 0.3, 0.5], style: "solid", color: 0xed8936, edge: 0xed8936 },
+
+
+    // ---- capture-walk measurement markers (toggle button on the page) ----
+    { id: "M1", label: "M1 slab edge line", tag: "MEASURE", bounds: [-0.02, 0.06, -6.14, -3.34, 2.94, 3.02], style: "solid", color: 0xff3b3b, edge: 0xff3b3b },
+    { id: "M2a", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.79,-0.71,-5.85,-5.77,0,3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
+    { id: "M2b", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.79,-0.71,-4.79,-4.71,0,3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
+    { id: "M2c", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.79,-0.71,-3.72,-3.64,0,3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
+    { id: "M3a", label: "M3 blue run", tag: "MEASURE", bounds: [-1.15,-1.07,-6.14,-3.34,0.06,0.14], style: "solid", color: 0xffe066, edge: 0xffe066 },
+    { id: "M3b", label: "M3 green run", tag: "MEASURE", bounds: [-2.9,0.0,-6.9,-6.82,0.06,0.14], style: "solid", color: 0xffe066, edge: 0xffe066 },
+    { id: "M4", label: "M4 blue width", tag: "MEASURE", bounds: [-1.5,0.0,-4.78,-4.70,0.10,0.18], style: "solid", color: 0x00e5ff, edge: 0x00e5ff },
+    { id: "M5", label: "M5 AC to water", tag: "MEASURE", bounds: [-0.82,0.10,-2.95,-2.87,0.35,0.43], style: "solid", color: 0xff4dff, edge: 0xff4dff },
+    { id: "M6a", label: "M6 pier", tag: "MEASURE", bounds: [-1.56,-1.44,-6.20,-6.06,0,2.4], style: "solid", color: 0xffffff, edge: 0xffffff },
+    { id: "M6b", label: "M6 pier", tag: "MEASURE", bounds: [-1.56,-1.44,-3.46,-3.32,0,2.4], style: "solid", color: 0xffffff, edge: 0xffffff },
+    { id: "M7", label: "M7 well upstand", tag: "MEASURE", bounds: [-0.90,-0.82,-0.62,-0.46,0,0.45], style: "solid", color: 0x39ff8a, edge: 0x39ff8a },
+    { id: "M8a", label: "M8 MBR slider width", tag: "MEASURE", bounds: [-1.46,-1.40,-6.10,-3.38,1.16,1.24], style: "solid", color: 0x4d79ff, edge: 0x4d79ff },
+    { id: "M8b", label: "M8 bar slider width", tag: "MEASURE", bounds: [-1.46,-1.40,-3.30,-0.58,1.16,1.24], style: "solid", color: 0x4d79ff, edge: 0x4d79ff },
 
     // ---- context: the plunge pool (orientation aid) ----
     { id: "plunge_pool", label: "Plunge pool - north edge IS blue PVC line; west corner meets green south end", tag: "ESTIMATE",
@@ -1394,16 +1412,19 @@ const SUNCOURT_SPEC = {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x161c27);
   const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.05, 100);
-  cam.position.set(9.0, -11.0, 8.0); cam.up.set(0,0,1);
+  const CV = (window.CAM_OVERRIDE || {});
+  cam.position.set(...(CV.pos || [9.0, -11.0, 8.0])); cam.up.set(0,0,1);
   const renderer = new THREE.WebGLRenderer({antialias:true});
   renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(devicePixelRatio);
   document.body.appendChild(renderer.domElement);
   const ctl = new THREE.OrbitControls(cam, renderer.domElement);
-  ctl.target.set(-0.5, -3.2, 1.0);
+  ctl.target.set(...(CV.target || [-0.5, -3.2, 1.0]));
   scene.add(new THREE.AmbientLight(0xffffff, .55));
   const sun = new THREE.DirectionalLight(0xfff8e7, .9); sun.position.set(4, -3, 8); scene.add(sun);
   const grid = new THREE.GridHelper(14, 28, 0x263042, 0x263042);
   grid.rotation.x = Math.PI/2; grid.position.z = -0.68; scene.add(grid);
+
+  // ---------- schematic materials ----------
   function makeMat(el, ghost){
     const c = el.color ?? 0xcccccc;
     if (el.style === 'glass') return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity: ghost? .10 : .18, side:THREE.DoubleSide});
@@ -1411,21 +1432,119 @@ const SUNCOURT_SPEC = {
     if (el.style === 'canopy')return new THREE.MeshPhongMaterial({color:c, transparent:true, opacity:.45});
     return new THREE.MeshPhongMaterial({color:c, transparent:ghost, opacity: ghost? .22 : 1.0});
   }
+
+  // ---------- solid / semi-real materials (procedural canvas textures) ----------
+  function canvasTex(draw){
+    const cv = document.createElement('canvas'); cv.width = cv.height = 256;
+    draw(cv.getContext('2d'));
+    const t = new THREE.CanvasTexture(cv);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    return t;
+  }
+  const texPlank = (base, line) => canvasTex(ctx => {
+    ctx.fillStyle = base; ctx.fillRect(0,0,256,256);
+    ctx.strokeStyle = line; ctx.lineWidth = 2;
+    for (let i = 0; i <= 8; i++){ ctx.beginPath(); ctx.moveTo(0, i*32); ctx.lineTo(256, i*32); ctx.stroke(); }
+    ctx.globalAlpha = .08; ctx.fillStyle = '#000';
+    for (let i = 0; i < 220; i++) ctx.fillRect(Math.random()*256, Math.random()*256, 24, 1.5);
+    ctx.globalAlpha = 1;
+  });
+  const texTile = (base, groutA, groutB) => canvasTex(ctx => {
+    for (let x = 0; x < 8; x++) for (let y = 0; y < 8; y++){
+      ctx.fillStyle = Math.random() < .3 ? groutB : base;
+      ctx.fillRect(x*32+1, y*32+1, 30, 30);
+    }
+    ctx.strokeStyle = groutA; ctx.lineWidth = 2;
+    for (let i = 0; i <= 8; i++){ ctx.beginPath(); ctx.moveTo(i*32,0); ctx.lineTo(i*32,256); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,i*32); ctx.lineTo(256,i*32); ctx.stroke(); }
+  });
+  const texLeaf = () => canvasTex(ctx => {
+    ctx.fillStyle = '#2f7a4a'; ctx.fillRect(0,0,256,256);
+    for (let i = 0; i < 400; i++){
+      ctx.fillStyle = ['#276749','#38a169','#48bb78','#22543d'][i%4];
+      ctx.beginPath(); ctx.ellipse(Math.random()*256, Math.random()*256, 9, 4, Math.random()*3, 0, 7); ctx.fill();
+    }
+  });
+  function makeSolidMat(el){
+    const sz = el.bounds; const w = Math.max(sz[1]-sz[0], .3), d = Math.max(sz[3]-sz[2], .3);
+    if (el.style === 'floor'){
+      const isWater = (el.id === 'plunge_pool');
+      const isWell  = (el.id === 'well_pool');
+      let tex;
+      if (isWater)      tex = texTile('#2b8cc9', '#1a6ea6', '#4fd1e0');
+      else if (isWell)  tex = texTile('#2c7a8c', '#1d5866', '#48a0ae');
+      else              tex = texPlank('#8a8073', '#6e675c');
+      tex.repeat.set(Math.ceil(w*1.5), Math.ceil(d*1.5));
+      return new THREE.MeshPhongMaterial({map: tex, shininess: isWater ? 80 : 8});
+    }
+    if (el.style === 'canopy'){
+      const tex = texLeaf(); tex.repeat.set(2,2);
+      return new THREE.MeshPhongMaterial({map: tex});
+    }
+    if (el.style === 'glass') return new THREE.MeshPhongMaterial({color: 0x9fc8e8, transparent:true, opacity:.32, shininess:90, side:THREE.DoubleSide});
+    if (el.style === 'pvc')   return new THREE.MeshPhongMaterial({color: 0xdfe8ee, transparent:true, opacity:.28, shininess:60, side:THREE.DoubleSide});
+    const c = el.color ?? 0xcccccc;
+    return new THREE.MeshPhongMaterial({color:c, shininess: 12});
+  }
+
+  // ---------- build ----------
   let nSolid = 0, nGhost = 0;
+  const measureGroup = new THREE.Group();
+  scene.add(measureGroup);
+  const objs = [];
   for (const el of S.elements){
     if (!el.tag) continue;
+    const isMeasure = (el.tag === 'MEASURE');
     const ghost = (el.tag === 'ESTIMATE');
     const [x0,x1,y0,y1,z0,z1] = el.bounds;
     const g = new THREE.BoxGeometry(x1-x0, y1-y0, z1-z0);
     const m = new THREE.Mesh(g, makeMat(el, ghost));
     m.position.set((x0+x1)/2, (y0+y1)/2, (z0+z1)/2);
-    scene.add(m);
     const eg = new THREE.LineSegments(new THREE.EdgesGeometry(g),
       new THREE.LineBasicMaterial({color: el.edge ?? (ghost ? 0xf6ad55 : 0xe2e8f0), transparent:true, opacity: el.edge ? .9 : (ghost? .5 : .35)}));
-    eg.position.copy(m.position); scene.add(eg);
-    ghost ? nGhost++ : nSolid++;
+    eg.position.copy(m.position);
+    (isMeasure ? measureGroup : scene).add(m);
+    (isMeasure ? measureGroup : scene).add(eg);
+    if (!isMeasure) { ghost ? nGhost++ : nSolid++; objs.push({mesh: m, edge: eg, el, ghost, schemMat: m.material}); }
   }
-  document.getElementById('counts').textContent = nSolid + ' banked elements · ' + nGhost + ' awaiting measurement';
+
+  // ---------- UI buttons ----------
+  const mkBtn = (text, top) => {
+    const b = document.createElement('button');
+    b.textContent = text;
+    b.style.cssText = 'position:fixed;top:'+top+'px;right:14px;z-index:10;padding:8px 14px;border-radius:8px;border:1px solid rgba(226,232,240,.3);background:rgba(18,23,33,.9);color:#f6ad55;font:600 13px -apple-system,sans-serif;cursor:pointer;';
+    document.body.appendChild(b);
+    return b;
+  };
+  if (measureGroup.children.length) {
+    const btn = mkBtn('Measure lines: ON', 14);
+    btn.onclick = () => {
+      measureGroup.visible = !measureGroup.visible;
+      btn.textContent = 'Measure lines: ' + (measureGroup.visible ? 'ON' : 'OFF');
+    };
+  }
+  let solidMode = false;
+  const styleBtn = mkBtn('Style: schematic', 58);
+  styleBtn.onclick = () => {
+    solidMode = !solidMode;
+    styleBtn.textContent = 'Style: ' + (solidMode ? 'solid' : 'schematic');
+    scene.background = new THREE.Color(solidMode ? 0x8fb6d9 : 0x161c27);
+    grid.visible = !solidMode;
+    for (const o of objs){
+      if (solidMode){
+        o.solidMat = o.solidMat || makeSolidMat(o.el);
+        o.mesh.material = o.solidMat;
+        o.edge.visible = false;
+      } else {
+        o.mesh.material = o.schemMat;
+        o.edge.visible = true;
+      }
+    }
+  };
+
+  const counts = document.getElementById('counts');
+  if (counts) counts.textContent = nSolid + ' banked elements · ' + nGhost + ' awaiting measurement';
+
   addEventListener('resize', ()=>{ cam.aspect=innerWidth/innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
   (function loop(){ requestAnimationFrame(loop); ctl.update(); renderer.render(scene, cam); })();
 })();
