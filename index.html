@@ -1241,7 +1241,6 @@ const SUNCOURT_SPEC = {
     { id: "red_deck", label: "Pergola zone deck (bar frontage + decked-over planter)", tag: "ESTIMATE", bounds: [-1.72, 2.21, -3.82, -0.56, -0.05, 0.0], style: "floor", color: 0x9c4221 },
     { id: "bar_wall", label: "Bar (master lounge) wall = red north side", tag: "RULING", bounds: [-1.78, -1.72, -3.82, -0.56, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
     { id: "door_dbk_red", label: "Bar slider -> RED: two-panel, full wall section", tag: "ESTIMATE", bounds: [-1.75, -1.69, -3.72, -0.66, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
-    { id: "pavilion_wall", label: "Living pavilion wall = red south side (no blind needed)", tag: "RULING", bounds: [2.21, 2.27, -3.82, -0.56, 0.0, 3.0], style: "solid", color: 0xe8edf2 },
     { id: "post_NE", label: "Pergola post NE", tag: "ESTIMATE", bounds: [-1.60, -1.52, -0.68, -0.60, 0.0, 2.8], style: "frame", color: 0xf7fafc },
     { id: "post_SE", label: "Pergola post SE", tag: "ESTIMATE", bounds: [1.32, 1.40, -0.68, -0.60, 0.0, 2.8], style: "frame", color: 0xf7fafc },
     { id: "post_SW", label: "Pergola post SW", tag: "ESTIMATE", bounds: [1.32, 1.40, -3.60, -3.52, 0.0, 2.8], style: "frame", color: 0xf7fafc },
@@ -1255,6 +1254,9 @@ const SUNCOURT_SPEC = {
     { id: "roof_downpipe", label: "Downpipe at SE post to deck drain", tag: "ESTIMATE", bounds: [1.34, 1.40, -0.86, -0.80, 0.0, 2.6], style: "frame", color: 0xfbd38d },
     { id: "red_pvc_bonsai", label: "RED east face: clear PVC to the bonsai", tag: "ESTIMATE", bounds: [-1.70, 2.19, -0.58, -0.56, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
     { id: "red_pvc_pool", label: "RED west face, pool half: clear PVC ziptrak (south of the join pole)", tag: "ESTIMATE", bounds: [0.61, 2.19, -3.80, -3.78, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
+
+    { id: "red_pvc_pavilion", label: "RED south face: clear PVC ziptrak (side is OPEN - no wall; per 08-29 21:11 ruling, reinstated 09-04)", tag: "ESTIMATE",
+      bounds: [2.19, 2.21, -3.80, -0.58, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
 
     // ---- blue|red interface: curtain + seal blind + plate; join pole where blue ends ----
     { id: "join_pole", label: "JOIN/VENT POLE at the blue-end of red west face; AC hose runs inside (~200mm box, doubler collars)", tag: "ESTIMATE", bounds: [0.47, 0.67, -3.92, -3.72, 0.0, 3.1], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
@@ -1302,7 +1304,8 @@ const SUNCOURT_SPEC = {
     { id: "outer_glass_fence", label: "Glass fence on the pool outer edge; marina beyond", tag: "RULING", bounds: [0.60, 9.03, -7.06, -7.02, 0.0, 1.0], style: "glass", color: 0x63b3ed },
     { id: "street_lamp", label: "STREET LAMP on the promenade - blackout-shade target", tag: "RULING", bounds: [1.95, 2.05, -7.55, -7.45, 0.0, 3.5], style: "solid", color: 0x2d3748 },
     { id: "outer_shade_blue", label: "Electric woven shade OUTSIDE blue pool face - street-lamp blackout", tag: "ESTIMATE", bounds: [0.60, 0.64, -6.66, -3.82, 0.0, 3.0], style: "pvc", color: 0x4a5568, edge: 0x9f7aea },
-    { id: "pavilion_mass", label: "Living pavilion (context)", tag: "RULING", bounds: [2.27, 7.1, -3.82, 0.5, 0.0, 3.0], style: "glass", color: 0xcbd5e0 },
+    { id: "pavilion_mass", label: "Living pavilion (context only - stands APART from red: no wall, no screen, no roof on that side; gap width = capture)", tag: "ESTIMATE",
+      bounds: [3.1, 7.1, -3.82, 0.5, 0.0, 3.0], style: "glass", color: 0xcbd5e0 },
 
     { id: "deck_hatch", label: "Deck access hatch (photos 5117/5134) - the under-deck void access", tag: "RULING",
       bounds: [-0.30, 0.10, -5.40, -5.00, -0.01, 0.01], style: "solid", color: 0x718096 },
@@ -1326,6 +1329,9 @@ const SUNCOURT_SPEC = {
   ],
 
   superseded: [
+    { date: "2026-09-04", what: "pavilion_wall as red south boundary (one blind saved)",
+      replaced_by: "red south side is OPEN - no wall/screen/roof; pavilion stands apart with a gap; south clear-PVC ziptrak reinstated",
+      why: "Richard on-site correction; gap width to pavilion = capture item" },
     { date: "2026-09-04", what: "bar-door pier photo-read ~33 in = 84 cm (Fenny tape photo, 08-30)",
       replaced_by: "piers measure 26-33 CM (photos 5120/5124/5127, dual-scale cross-checked)",
       why: "the 33 was centimetres, not inches - the same dual-scale tape trap as the bonsai pot; the triage agent caught its own identical misread live" },
