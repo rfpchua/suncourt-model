@@ -1188,9 +1188,9 @@ const SUNCOURT_SPEC = {
     pergola_ew:         { value: 2.8,  tag: "RULING",   source: "sun-court-pavilion.md" },
     pergola_roof_h:     { value: 2.8,  tag: "ESTIMATE", source: "Richard 2026-08-29: 'pergola might be 2.8m'; blinds at blue|red start at 2.8 + plate to 3.0" },
     plate_gap:          { value: 0.2,  tag: "CALCULATION", source: "3.0 soffit minus 2.8 pergola roofline = aluminium plate height at blue|red interface" },
-    blue_len:           { value: 2.8,  tag: "ESTIMATE", source: "blue strip run scaled off plan; TAPE (capture F1)" },
-    blue_width:         { value: 1.5,  tag: "ESTIMATE", source: "master wall to plunge-pool edge, scaled off plan; TAPE (capture H7)" },
-    green_len:          { value: 2.9,  tag: "ESTIMATE", source: "Richard 22:12 annotated render: green ends ~1.4 m past the house/window line (his red post); TAPE (capture F2)" },
+    blue_len:           { value: 3.13, tag: "CALCULATION", source: "plan-traced at 67px/m (bay anchor); TAPE confirms (F1)" },
+    blue_width:         { value: 2.29, tag: "CALCULATION", source: "bedroom wall to pool-end edge, plan-traced 67px/m; TAPE (H7)" },
+    green_len:          { value: 3.28, tag: "CALCULATION", source: "plan-traced; gate end north; TAPE (F2)" },
     post_section:       { value: 0.08, tag: "ESTIMATE", source: "typical 80mm aluminium post; supplier detail" },
     glass_fence_h:      { value: 1.0,  tag: "ESTIMATE", source: "typical pool fence; MEASURE (capture item 5)" },
     walkway_gap:        { value: 0.6,  tag: "ESTIMATE", source: "red outer face to plunge-pool edge — material now ruled PVC ziptrak; still measure (H8) for traffic/door planning" }
@@ -1207,225 +1207,119 @@ const SUNCOURT_SPEC = {
   },
 
   // Renderable elements. bounds = [x0,x1, y0,y1, z0,z1]. tag decides solid vs ghost.
+  // PLAN-TRUED 2026-09-04: zones traced on the architect plan at 67 px/m (anchor: bay 4.42 m),
+  // Richard-confirmed v3 tints. Model x = plan N-S (north negative), y = plan E-W (west negative).
   elements: [
     // ---- banked geometry (2026-07-24 tapes) ----
-    { id: "well_pool",      label: "Planting pool (bonsai well)", tag: "MEASURED",
-      bounds: [-1.98, 1.98, -0.54, 0.54, -0.67, 0], style: "floor", color: 0x4a5568 },
-    { id: "sill_wall",      label: "Sill wall (foyer side)", tag: "MEASURED",
-      bounds: [-1.98, 1.98, 0.54, 0.64, 0, 0.52], style: "solid", color: 0x718096 },
-    { id: "foyer_glass",    label: "Foyer glazing (y=+0.54)", tag: "MEASURED",
-      bounds: [-1.98, 1.98, 0.53, 0.55, 0.52, 3], style: "glass", color: 0x63b3ed },
-    { id: "soffit_return_L", label: "Soffit return N", tag: "MEASURED",
-      bounds: [-2.21, -1.5, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
-    { id: "soffit_return_R", label: "Soffit return S", tag: "MEASURED",
-      bounds: [1.5, 2.21, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
-    // ---- bonsai: trunk + pads from the bonsai model spec (same coordinate frame),
-    // pads clipped at y=-0.54 = the PVC line (the L5/M3/T5 trim ruling, rendered as-trimmed) ----
-    { id: "tree_trunk", label: "Bonsai trunk", tag: "MEASURED",
-      bounds: [-0.09, 0.09, -0.05, 0.13, -0.05, 1.55], style: "solid", color: 0x6b4a2b },
-    // pads MEASURED 2026-09-04 (LiDAR + photogrammetry scan; slid -0.11; clipped at y=-0.54 PVC line; best face -> courtyard)
-    { id: "pad_L5", label: "Bonsai pad L5 (Lower rear)", tag: "MEASURED",
-      bounds: [-0.12, 0.46, 0.03, 0.67, 0.71, 0.91], style: "canopy", color: 0x48bb78 },
-    { id: "pad_L2", label: "Bonsai pad L2 (Lower left arm (front half))", tag: "MEASURED",
-      bounds: [-1.14, -0.50, -0.54, -0.18, 0.78, 0.94], style: "canopy", color: 0x48bb78 },
-    { id: "pad_L3", label: "Bonsai pad L3 (Lower left arm (back half))", tag: "MEASURED",
-      bounds: [-1.10, -0.55, -0.06, 0.44, 0.78, 0.96], style: "canopy", color: 0x48bb78 },
-    { id: "pad_M1c", label: "Bonsai pad M1c (Mid centre)", tag: "MEASURED",
-      bounds: [-0.18, 0.14, -0.54, -0.24, 0.95, 1.13], style: "canopy", color: 0x48bb78 },
-    { id: "pad_M1", label: "Bonsai pad M1 (Mid left)", tag: "MEASURED",
-      bounds: [-0.66, -0.26, -0.54, 0.07, 0.95, 1.34], style: "canopy", color: 0x48bb78 },
-    { id: "pad_M2", label: "Bonsai pad M2 (Mid right)", tag: "MEASURED",
-      bounds: [0.28, 0.68, -0.54, -0.14, 0.99, 1.41], style: "canopy", color: 0x48bb78 },
-    { id: "pad_M3", label: "Bonsai pad M3 (Mid rear)", tag: "MEASURED",
-      bounds: [0.03, 0.45, 0.38, 0.78, 1.32, 1.47], style: "canopy", color: 0x48bb78 },
-    { id: "pad_T4", label: "Bonsai pad T4 (Top front)", tag: "MEASURED",
-      bounds: [-0.10, 0.27, -0.54, -0.32, 1.57, 1.70], style: "canopy", color: 0x48bb78 },
-    { id: "pad_T2", label: "Bonsai pad T2 (Top left)", tag: "MEASURED",
-      bounds: [-0.53, -0.21, -0.06, 0.34, 1.56, 1.80], style: "canopy", color: 0x48bb78 },
-    { id: "pad_T3", label: "Bonsai pad T3 (Top right)", tag: "MEASURED",
-      bounds: [0.23, 0.79, -0.15, 0.47, 1.62, 1.88], style: "canopy", color: 0x48bb78 },
-    { id: "pad_T1", label: "Bonsai pad T1 (Apex crown)", tag: "MEASURED",
-      bounds: [-0.02, 0.46, -0.29, 0.22, 2.10, 2.22], style: "canopy", color: 0x48bb78 },
-    { id: "pot",            label: "Pot + platform", tag: "MEASURED",
-      bounds: [-0.42, 0.42, -0.42, 0.42, -0.67, -0.05], style: "solid", color: 0x975a16 },
-    { id: "balcony_slab_bay", label: "Balcony slab over bay area, dining-side half (edge TO CONFIRM)", tag: "RULING",
-      bounds: [-2.21, 0, -1.2, -0.28, 3, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "well_pool", label: "Planting pool (bonsai well)", tag: "MEASURED", bounds: [-1.98, 1.98, -0.54, 0.54, -0.67, 0], style: "floor", color: 0x4a5568 },
+    { id: "sill_wall", label: "Sill wall (foyer side)", tag: "MEASURED", bounds: [-1.98, 1.98, 0.54, 0.64, 0, 0.52], style: "solid", color: 0x718096 },
+    { id: "foyer_glass", label: "Foyer glazing (y=+0.54)", tag: "MEASURED", bounds: [-1.98, 1.98, 0.53, 0.55, 0.52, 3], style: "glass", color: 0x63b3ed },
+    { id: "soffit_return_L", label: "Soffit return N", tag: "MEASURED", bounds: [-2.21, -1.5, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
+    { id: "soffit_return_R", label: "Soffit return S", tag: "MEASURED", bounds: [1.5, 2.21, -0.62, 0.54, 3, 3.15], style: "solid", color: 0xa0aec0 },
+    { id: "wall_bay_north", label: "White facade wall, north of the well opening - flush", tag: "RULING", bounds: [-2.21, -1.5, -0.62, -0.54, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
+    { id: "window_north", label: "Window flush IN the north wall", tag: "RULING", bounds: [-2.08, -1.58, -0.63, -0.55, 0.52, 2.9], style: "glass", color: 0x63b3ed },
+    { id: "wall_bay_south", label: "White facade wall, south of the well opening", tag: "RULING", bounds: [1.5, 2.21, -0.62, -0.54, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
+    { id: "window_south", label: "Window flush IN the south wall", tag: "RULING", bounds: [1.58, 2.08, -0.63, -0.55, 0.52, 2.9], style: "glass", color: 0x63b3ed },
+    { id: "balcony_slab_bay", label: "Balcony slab over bay area, dining-side half", tag: "RULING", bounds: [-2.21, 0.0, -1.2, -0.28, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "tree_trunk", label: "Bonsai trunk", tag: "MEASURED", bounds: [-0.09, 0.09, -0.05, 0.13, -0.05, 1.55], style: "solid", color: 0x6b4a2b },
+    { id: "pad_L5", label: "Bonsai pad L5", tag: "MEASURED", bounds: [-0.12, 0.46, 0.14, 0.53, 0.66, 0.86], style: "canopy", color: 0x48bb78 },
+    { id: "pad_L2", label: "Bonsai pad L2", tag: "MEASURED", bounds: [-1.14, -0.50, -0.51, -0.07, 0.73, 0.89], style: "canopy", color: 0x48bb78 },
+    { id: "pad_L3", label: "Bonsai pad L3", tag: "MEASURED", bounds: [-1.10, -0.55, 0.05, 0.53, 0.73, 0.91], style: "canopy", color: 0x48bb78 },
+    { id: "pad_M1c", label: "Bonsai pad M1c", tag: "MEASURED", bounds: [-0.18, 0.14, -0.51, -0.13, 0.90, 1.08], style: "canopy", color: 0x48bb78 },
+    { id: "pad_M1", label: "Bonsai pad M1", tag: "MEASURED", bounds: [-0.66, -0.26, -0.47, 0.18, 0.90, 1.29], style: "canopy", color: 0x48bb78 },
+    { id: "pad_M2", label: "Bonsai pad M2", tag: "MEASURED", bounds: [0.28, 0.68, -0.51, -0.03, 0.94, 1.36], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T4", label: "Bonsai pad T4", tag: "MEASURED", bounds: [-0.10, 0.27, -0.54, -0.21, 1.52, 1.65], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T2", label: "Bonsai pad T2", tag: "MEASURED", bounds: [-0.53, -0.21, 0.05, 0.45, 1.51, 1.75], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T3", label: "Bonsai pad T3", tag: "MEASURED", bounds: [0.23, 0.79, -0.04, 0.53, 1.57, 1.82], style: "canopy", color: 0x48bb78 },
+    { id: "pad_T1", label: "Bonsai pad T1", tag: "MEASURED", bounds: [-0.02, 0.46, -0.18, 0.33, 2.05, 2.17], style: "canopy", color: 0x48bb78 },
 
-    // ---- open bonsai court (stays open to sky in every state) ----
+    // ---- RED: pergola zone = bar frontage + planter (Richard v3 + planter-included ruling) ----
+    { id: "red_deck", label: "Pergola zone deck (bar frontage + decked-over planter)", tag: "ESTIMATE", bounds: [-1.72, 2.21, -3.82, -0.56, -0.05, 0.0], style: "floor", color: 0x9c4221 },
+    { id: "bar_wall", label: "Bar (master lounge) wall = red north side", tag: "RULING", bounds: [-1.78, -1.72, -3.82, -0.56, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
+    { id: "door_dbk_red", label: "Bar slider -> RED: two-panel, full wall section", tag: "ESTIMATE", bounds: [-1.75, -1.69, -3.72, -0.66, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
+    { id: "pavilion_wall", label: "Living pavilion wall = red south side (no blind needed)", tag: "RULING", bounds: [2.21, 2.27, -3.82, -0.56, 0.0, 3.0], style: "solid", color: 0xe8edf2 },
+    { id: "post_NE", label: "Pergola post NE", tag: "ESTIMATE", bounds: [-1.60, -1.52, -0.88, -0.80, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "post_SE", label: "Pergola post SE", tag: "ESTIMATE", bounds: [1.32, 1.40, -0.88, -0.80, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "post_SW", label: "Pergola post SW", tag: "ESTIMATE", bounds: [1.32, 1.40, -3.60, -3.52, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "post_NW", label: "Pergola post NW", tag: "ESTIMATE", bounds: [-1.60, -1.52, -3.60, -3.52, 0.0, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_E", label: "Beam, bonsai side", tag: "ESTIMATE", bounds: [-1.60, 1.40, -0.90, -0.80, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_W", label: "Beam, pool/blue side", tag: "ESTIMATE", bounds: [-1.60, 1.40, -3.60, -3.50, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_N", label: "Beam, bar side", tag: "ESTIMATE", bounds: [-1.60, -1.50, -3.60, -0.80, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "beam_S", label: "Beam, pavilion side", tag: "ESTIMATE", bounds: [1.30, 1.40, -3.60, -0.80, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "spine_beam", label: "Spine beam N-S (roof retracts toward the bar)", tag: "ESTIMATE", bounds: [-1.60, 1.40, -2.24, -2.16, 2.7, 2.8], style: "frame", color: 0xf7fafc },
+    { id: "roof_gutter", label: "Gutter on the pavilion-side beam (sheds away from bar + bonsai)", tag: "ESTIMATE", bounds: [1.40, 1.46, -3.60, -0.80, 2.6, 2.68], style: "frame", color: 0xfbd38d },
+    { id: "roof_downpipe", label: "Downpipe at SE post to deck drain", tag: "ESTIMATE", bounds: [1.34, 1.40, -0.86, -0.80, 0.0, 2.6], style: "frame", color: 0xfbd38d },
+    { id: "red_pvc_bonsai", label: "RED east face: clear PVC to the bonsai", tag: "ESTIMATE", bounds: [-1.70, 2.19, -0.58, -0.56, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
+    { id: "red_pvc_pool", label: "RED west face, pool half: clear PVC ziptrak (south of the join pole)", tag: "ESTIMATE", bounds: [0.61, 2.19, -3.80, -3.78, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
 
-    // ---- RED: pergola zone (roof ~2.8; over the planter/deck west of the court) ----
-    { id: "red_deck", label: "Pergola deck (red zone)", tag: "ESTIMATE",
-      bounds: [-1.5, 1.5, -3.34, -0.54, -0.05, 0], style: "floor", color: 0x9c4221 },
-    { id: "post_NE", label: "Pergola post NE", tag: "ESTIMATE",
-      bounds: [-1.5, -1.42, -0.62, -0.54, 0, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "post_SE", label: "Pergola post SE", tag: "ESTIMATE",
-      bounds: [1.42, 1.5, -0.62, -0.54, 0, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "post_SW", label: "Pergola post SW", tag: "ESTIMATE",
-      bounds: [1.42, 1.5, -3.34, -3.26, 0, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "post_NW", label: "Pergola post NW", tag: "ESTIMATE",
-      bounds: [-1.5, -1.42, -3.34, -3.26, 0, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "beam_E", label: "Beam, bonsai side", tag: "ESTIMATE",
-      bounds: [-1.5, 1.5, -0.64, -0.54, 2.7, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "beam_W", label: "Beam, west side", tag: "ESTIMATE",
-      bounds: [-1.5, 1.5, -3.34, -3.24, 2.7, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "beam_N", label: "Beam, master-lounge side", tag: "ESTIMATE",
-      bounds: [-1.5, -1.4, -3.34, -0.54, 2.7, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "beam_S", label: "Beam, pavilion side", tag: "ESTIMATE",
-      bounds: [1.4, 1.5, -3.34, -0.54, 2.7, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "spine_beam", label: "Central spine beam - REORIENTED N-S (22:46): runs in the travel direction; roof retracts NORTH toward the house, fabric stacks at the lounge wall", tag: "ESTIMATE",
-      bounds: [-1.5, 1.5, -1.97, -1.91, 2.7, 2.8], style: "frame", color: 0xf7fafc },
-    { id: "roof_gutter", label: "Gutter on the SOUTH beam - closed roof slopes away from the house; sheds here, never toward bonsai or pool deck", tag: "ESTIMATE",
-      bounds: [1.5, 1.56, -3.34, -0.54, 2.6, 2.68], style: "frame", color: 0xfbd38d },
-    { id: "roof_downpipe", label: "Downpipe at SE post to a deck drain (discharge away from the bonsai pit)", tag: "ESTIMATE",
-      bounds: [1.44, 1.5, -0.62, -0.56, 0.0, 2.6], style: "frame", color: 0xfbd38d },
-    { id: "red_pvc_bonsai", label: "RED east face: clear PVC to the bonsai", tag: "ESTIMATE",
-      bounds: [-1.48, 1.48, -0.56, -0.54, 0, 2.8], style: "pvc", color: 0xfefcbf },
-    { id: "red_face_south", label: "RED south/pool face: clear PVC ziptrak (ruled 2026-08-29 21:11)", tag: "ESTIMATE",
-      bounds: [1.46, 1.48, -3.34, -0.54, 0, 2.8], style: "pvc", color: 0xfefcbf },
-    { id: "lounge_wall", label: "Master lounge/bedroom wall (red + blue north side, schematic)", tag: "ESTIMATE",
-      bounds: [-1.56, -1.5, -6.14, -0.54, 0, 3], style: "glass", color: 0x90cdf4 },
+    // ---- blue|red interface: curtain + seal blind + plate; join pole where blue ends ----
+    { id: "join_pole", label: "JOIN/VENT POLE at the blue-end of red west face; AC hose runs inside (~200mm box, doubler collars)", tag: "ESTIMATE", bounds: [0.47, 0.67, -3.92, -3.72, 0.0, 3.1], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    { id: "pole_top_louvre", label: "Pole top louvred slots above the 2.8 roofline + cap (chimney mouth)", tag: "ESTIMATE", bounds: [0.45, 0.69, -3.94, -3.70, 2.85, 3.1], style: "solid", color: 0xc53030, edge: 0xc53030 },
+    { id: "plate_bluered", label: "Aluminium plate 2.8-3.0, blue|red interface", tag: "ESTIMATE", bounds: [-1.72, 0.47, -3.86, -3.78, 2.8, 3.0], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    { id: "ziptrak_bluered", label: "Blue|red SEAL blind: clear PVC, drops from 2.8 in AC mode only", tag: "ESTIMATE", bounds: [-1.70, 0.45, -3.83, -3.81, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
+    { id: "curtain_rail", label: "Curtain rail, full red west edge at 2.8; curtains part at the pole", tag: "ESTIMATE", bounds: [-1.72, 2.21, -3.77, -3.73, 2.76, 2.8], style: "solid", color: 0xe2e8f0, edge: 0xb794f4 },
+    { id: "curtain_left", label: "Curtain, bar-side panel (stacked)", tag: "ESTIMATE", bounds: [-1.70, -1.25, -3.78, -3.72, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
+    { id: "curtain_right", label: "Curtain, pavilion-side panel (stacked)", tag: "ESTIMATE", bounds: [1.75, 2.19, -3.78, -3.72, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
 
-    // ---- the join: pole mid-way on red's west face (Richard's pole, both annotations) ----
-    { id: "join_pole", label: "JOIN POLE = VENT COLUMN (Richard 23:32): ~200 mm box section; AC hose runs INSIDE (air gap keeps the skin cool); welded doubler collars at both holes; still carries blind tracks + plate + curtain rail", tag: "ESTIMATE",
-      bounds: [-0.1, 0.1, -3.44, -3.24, 0.0, 3.1], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
-    { id: "pole_top_louvre", label: "Pole top: louvred slots ABOVE the 2.8 roofline + cap - the chimney mouth, self-draining, no cowl", tag: "ESTIMATE",
-      bounds: [-0.12, 0.12, -3.46, -3.22, 2.85, 3.1], style: "solid", color: 0xc53030, edge: 0xc53030 },
-    { id: "plate_bluered", label: "Aluminium plate, blue|red interface: back at 2.8-3.0 (23:32 - the vent column replaced the duct chase)", tag: "ESTIMATE",
-      bounds: [-1.5, 0, -3.38, -3.3, 2.8, 3], style: "solid", color: 0xfc8181, edge: 0xfc8181 },
+    // ---- AC (dual-hose portable + vent pole; bar is an aircon dead zone) ----
+    { id: "ac_unit", label: "Dual-hose portable, red NW corner by the bar wall (clear of slider opening)", tag: "ESTIMATE", bounds: [-1.65, -1.10, -3.70, -3.25, 0.0, 0.7], style: "solid", color: 0xed8936, edge: 0xed8936 },
+    { id: "ac_hose_to_pole", label: "Exhaust hose: unit -> vent pole base (insulated, <=2 bends)", tag: "ESTIMATE", bounds: [-1.10, 0.47, -3.72, -3.58, 0.3, 0.5], style: "solid", color: 0xed8936, edge: 0xed8936 },
+    { id: "ac_intake_duct", label: "Intake duct: floor run along bar wall to the well north bay", tag: "ESTIMATE", bounds: [-1.68, -1.54, -3.25, -0.60, 0.1, 0.25], style: "solid", color: 0x2f855a, edge: 0x2f855a },
+    { id: "ac_intake_grommet", label: "Intake grommet LOW in the bonsai-side PVC (sips open-sky well air)", tag: "ESTIMATE", bounds: [-1.75, -1.55, -0.60, -0.52, 0.15, 0.35], style: "solid", color: 0x2f855a, edge: 0x2f855a },
+    { id: "ac_condensate", label: "Condensate hose to deck drain (continuous fall)", tag: "ESTIMATE", bounds: [-1.20, -1.15, -3.25, -2.40, 0.02, 0.08], style: "solid", color: 0x63b3ed, edge: 0x63b3ed },
 
-    // ---- blue|red interface v2 (2026-08-29 22:19): curtain rail + seal blind, accordion door dropped ----
-    { id: "curtain_rail", label: "Curtain rail - full pergola west edge at 2.8, curtains part at the join pole (privacy layer, everyday passage)", tag: "ESTIMATE",
-      bounds: [-1.48, 1.48, -3.36, -3.32, 2.76, 2.8], style: "solid", color: 0xe2e8f0, edge: 0xb794f4 },
-    { id: "curtain_left", label: "Curtain, north panel (stacks toward the lounge wall)", tag: "ESTIMATE",
-      bounds: [-1.46, -1.0, -3.37, -3.31, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
-    { id: "curtain_right", label: "Curtain, south panel (stacks toward the SW post)", tag: "ESTIMATE",
-      bounds: [1.0, 1.46, -3.37, -3.31, 0.1, 2.76], style: "pvc", color: 0xb794f4, edge: 0xb794f4 },
-    { id: "ziptrak_bluered", label: "Blue|red SEAL blind: clear PVC ziptrak, drops from 2.8 only when cooling (replaces the fixed partition + accordion door)", tag: "ESTIMATE",
-      bounds: [-1.48, -0.04, -3.44, -3.4, 0.0, 2.8], style: "pvc", color: 0xfefcbf },
-    { id: "red_outer_pvc", label: "RED outer face, pool side: clear PVC ziptrak (ruled 2026-08-29 21:11)", tag: "ESTIMATE",
-      bounds: [0.04, 1.48, -3.36, -3.32, 0, 2.8], style: "pvc", color: 0xfefcbf },
+    // ---- BLUE: bedroom-frontage strip; pool-viewing face is its SOUTH end ----
+    { id: "blue_deck", label: "Blue deck strip (bedroom frontage, sofa)", tag: "ESTIMATE", bounds: [-1.72, 0.57, -6.96, -3.82, -0.05, 0.0], style: "floor", color: 0x2c5282 },
+    { id: "blue_slab", label: "Upstairs balcony slab over blue (soffit 3.0)", tag: "ESTIMATE", bounds: [-1.72, 0.57, -6.96, -3.82, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "bedroom_wall", label: "Master bedroom wall (blue north side)", tag: "RULING", bounds: [-1.78, -1.72, -6.96, -3.82, 0.0, 3.0], style: "glass", color: 0x90cdf4 },
+    { id: "door_mbr_blue", label: "MBR slider -> BLUE: two-panel, full wall section", tag: "ESTIMATE", bounds: [-1.75, -1.69, -6.86, -3.92, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
+    { id: "blue_pvc_pool", label: "BLUE pool-viewing face: clear PVC at the pool-end edge (SOUTH face - corrected by plan 09-04)", tag: "ESTIMATE", bounds: [0.55, 0.59, -6.66, -3.82, 0.0, 3.0], style: "pvc", color: 0xbee3f8, edge: 0x63b3ed },
+    { id: "zpole_blue_W", label: "Guide pole, blue pool face west end", tag: "ESTIMATE", bounds: [0.54, 0.60, -6.72, -6.66, 0.0, 3.0], style: "solid", color: 0xe2e8f0, edge: 0xfbd38d },
 
-    // ---- BLUE: pool-viewing zone (under balcony, full 3.0) ----
-    { id: "blue_deck", label: "Pool-viewing zone deck (blue)", tag: "ESTIMATE",
-      bounds: [-1.5, 0, -6.14, -3.34, -0.05, 0], style: "floor", color: 0x2c5282 },
-    { id: "blue_slab", label: "Balcony slab over blue zone (soffit 3.0)", tag: "ESTIMATE",
-      bounds: [-1.5, 0, -6.14, -3.34, 3, 3.3], style: "solid", color: 0xa0aec0 },
-    { id: "blue_pvc_pool", label: "BLUE pool face: clear PVC AT THE WATER EDGE - blue opens directly onto the plunge pool (2026-08-29 22:00)", tag: "ESTIMATE",
-      bounds: [-0.02, 0.02, -6.14, -3.34, 0, 3], style: "pvc", color: 0xbee3f8, edge: 0x63b3ed },
+    // ---- airlock #1: green|blue, Vertiglide ----
+    { id: "airlock_partition", label: "AIRLOCK #1 partition, green|blue (full 3.0)", tag: "ESTIMATE", bounds: [-1.72, 0.57, -7.00, -6.92, 0.0, 3.0], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
+    { id: "vertiglide_p1", label: "Duette Vertiglide accordion door (floor-to-ceiling, side-stacking)", tag: "ESTIMATE", bounds: [-0.30, -0.06, -7.04, -6.94, 0.0, 3.0], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
+    { id: "vertiglide_p2", label: "Vertiglide panel", tag: "ESTIMATE", bounds: [-0.06, 0.18, -6.98, -6.88, 0.0, 3.0], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
+    { id: "vertiglide_p3", label: "Vertiglide panel", tag: "ESTIMATE", bounds: [0.18, 0.42, -7.04, -6.94, 0.0, 3.0], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
 
-    // ---- the airlock door: green|blue interface ----
-    { id: "airlock_partition", label: "AIRLOCK partition, green|blue interface (full 3.0)", tag: "ESTIMATE",
-      bounds: [-1.5, 0, -6.18, -6.1, 0, 3], style: "solid", color: 0x81e6d9, edge: 0x4fd1c5 },
-    { id: "airlock_door_p1", label: "Airlock #1 ACCORDION door (slides left-right, stacks flat at the side — never swings)", tag: "ESTIMATE",
-      bounds: [-1.3, -1.06, -6.24, -6.12, 0, 3], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
-    { id: "airlock_door_p2", label: "Airlock #1 accordion panel", tag: "ESTIMATE",
-      bounds: [-1.06, -0.82, -6.16, -6.04, 0, 3], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
-    { id: "airlock_door_p3", label: "Airlock #1 accordion panel", tag: "ESTIMATE",
-      bounds: [-0.82, -0.58, -6.24, -6.12, 0, 3], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
-    { id: "airlock_door_p4", label: "Airlock #1 accordion panel", tag: "ESTIMATE",
-      bounds: [-0.58, -0.34, -6.16, -6.04, 0, 3], style: "solid", color: 0x38b2ac, edge: 0x38d9c9 },
+    // ---- GREEN: passive storage/viewing strip to the gate ----
+    { id: "green_deck", label: "Green deck strip (BBQ walkway to the gate)", tag: "ESTIMATE", bounds: [-2.69, 0.60, -9.12, -6.66, -0.05, 0.0], style: "floor", color: 0x276749 },
+    { id: "green_slab", label: "Balcony slab over green (extent TO CONFIRM)", tag: "ESTIMATE", bounds: [-2.69, 0.60, -9.12, -6.66, 3.0, 3.3], style: "solid", color: 0xa0aec0 },
+    { id: "green_mesh_W", label: "GREEN 1% mesh, drops JUST INSIDE the dark-glass balustrade on its own poles", tag: "ESTIMATE", bounds: [-2.69, 0.60, -8.99, -8.95, 0.0, 3.0], style: "mesh", color: 0xd6bcfa },
+    { id: "green_mesh_N", label: "GREEN north end mesh (gate side - entry by raising this blind)", tag: "ESTIMATE", bounds: [-2.71, -2.67, -9.12, -6.66, 0.0, 3.0], style: "mesh", color: 0xd6bcfa },
+    { id: "boundary_dark_glass", label: "Dark-glass balustrade, boundary to the BBQ promenade (untouched)", tag: "RULING", bounds: [-2.69, 0.60, -9.16, -9.12, 0.0, 1.1], style: "glass", color: 0x2c5282 },
+    { id: "zpole_green_1", label: "Mesh guide pole (inside balustrade)", tag: "ESTIMATE", bounds: [-2.68, -2.62, -8.99, -8.93, 0.0, 3.0], style: "solid", color: 0xe2e8f0, edge: 0xfbd38d },
+    { id: "zpole_green_2", label: "Mesh guide pole (inside balustrade)", tag: "ESTIMATE", bounds: [-1.10, -1.04, -8.99, -8.93, 0.0, 3.0], style: "solid", color: 0xe2e8f0, edge: 0xfbd38d },
+    { id: "zpole_green_3", label: "Mesh guide pole (green SE corner)", tag: "ESTIMATE", bounds: [0.54, 0.60, -8.99, -8.93, 0.0, 3.0], style: "solid", color: 0xe2e8f0, edge: 0xfbd38d },
 
-    // ---- GREEN: 1% mesh zone (west PES strip, under balcony) ----
-    { id: "green_deck", label: "1% mesh zone deck (green) — long strip, extends NORTH past the bedroom (2026-08-29 22:00)", tag: "ESTIMATE",
-      bounds: [-2.9, 0, -7.74, -6.14, -0.05, 0], style: "floor", color: 0x276749 },
-    { id: "green_slab", label: "Balcony slab over green zone (coverage extent TO CONFIRM)", tag: "ESTIMATE",
-      bounds: [-2.9, 0, -7.74, -6.14, 3, 3.3], style: "solid", color: 0xa0aec0 },
-    { id: "green_mesh_W", label: "GREEN west face: 1% mesh, full 3.0, full run", tag: "ESTIMATE",
-      bounds: [-2.9, 0, -7.76, -7.72, 0, 3], style: "mesh", color: 0xd6bcfa },
-    { id: "green_mesh_N", label: "GREEN north end face: 1% mesh - THE ENTRY: pull this ziptrak up to walk in from outside (no house door into green)", tag: "ESTIMATE",
-      bounds: [-2.92, -2.88, -7.74, -6.14, 0, 3], style: "mesh", color: 0xd6bcfa },
-    { id: "green_mesh_S", label: "GREEN south end face: 1% mesh (at the pool west corner)", tag: "ESTIMATE",
-      bounds: [-0.02, 0.02, -7.74, -6.14, 0, 3], style: "mesh", color: 0xd6bcfa },
-    { id: "bedroom_wall_W", label: "Master bedroom WEST wall (green inner side, schematic)", tag: "ESTIMATE",
-      bounds: [-4.5, -1.5, -6.14, -6.08, 0, 3], style: "glass", color: 0x90cdf4 },
+    // ---- pool + promenade context (photo-verified 09-04) ----
+    { id: "plunge_pool", label: "Plunge pool, full drawn length (plan-traced)", tag: "RULING", bounds: [0.60, 9.03, -6.66, -3.82, -0.35, -0.05], style: "floor", color: 0x2b6cb0 },
+    { id: "pebble_channel", label: "Pebble/water-feature channel, promenade side", tag: "RULING", bounds: [0.60, 9.03, -7.02, -6.66, -0.15, 0.0], style: "solid", color: 0x4a5568 },
+    { id: "outer_glass_fence", label: "Glass fence on the pool outer edge; marina beyond", tag: "RULING", bounds: [0.60, 9.03, -7.06, -7.02, 0.0, 1.0], style: "glass", color: 0x63b3ed },
+    { id: "street_lamp", label: "STREET LAMP on the promenade - blackout-shade target", tag: "RULING", bounds: [1.95, 2.05, -7.55, -7.45, 0.0, 3.5], style: "solid", color: 0x2d3748 },
+    { id: "outer_shade_blue", label: "Electric woven shade OUTSIDE blue pool face - street-lamp blackout", tag: "ESTIMATE", bounds: [0.60, 0.64, -6.66, -3.82, 0.0, 3.0], style: "pvc", color: 0x4a5568, edge: 0x9f7aea },
+    { id: "pavilion_mass", label: "Living pavilion (context)", tag: "RULING", bounds: [2.27, 7.1, -3.82, 0.5, 0.0, 3.0], style: "glass", color: 0xcbd5e0 },
 
-
-    // ---- ziptrak guide poles (2026-08-29 22:07): every blind span needs side tracks; a pole
-    // stands wherever a span end has no wall. Max ~3.5-4 m per blind bay -> green west run = 2 bays.
-    // Poles run deck to soffit (3.0). The join pole doubles as a guide post for two spans.
-    { id: "zpole_green_NW", label: "Guide pole - green NW corner (west face / north face meet)", tag: "ESTIMATE",
-      bounds: [-2.93, -2.87, -7.77, -7.71, 0, 3], style: "solid", color: 0xe2e8f0, edge: 0xfbd38d },
-    { id: "zpole_green_SW", label: "Guide pole - green SW corner", tag: "ESTIMATE",
-      bounds: [-0.03, 0.03, -7.77, -7.71, 0, 3], style: "solid", color: 0xe2e8f0, edge: 0xfbd38d },
-    { id: "zpole_green_NE", label: "Guide pole - green north end, inner side (bedroom-wall side)", tag: "ESTIMATE",
-      bounds: [-2.93, -2.87, -6.17, -6.11, 0, 3], style: "solid", color: 0xe2e8f0, edge: 0xfbd38d },
-    { id: "zpole_pool_corner", label: "Guide pole - green|blue|pool corner (three spans meet here: green south, blue pool face, airlock #1)", tag: "ESTIMATE",
-      bounds: [-0.03, 0.03, -6.17, -6.11, 0, 3], style: "solid", color: 0xe2e8f0, edge: 0xfc8181 },
-
-
-    // ---- house doors into the zones (2026-08-29 22:22 + 22:25 correction, Richard): each is a
-    // TWO-PANEL SLIDER SPANNING ITS ENTIRE WALL SECTION - one panel slides behind the other, so the
-    // clear opening = half the facade. Positions SCHEMATIC until capture. Default mode = all zones
-    // + house doors OPEN, one flowing space. Green has NO house door - outside entry is through
-    // its own north mesh ziptrak, pulled up (22:27 correction).
-    { id: "door_mbr_blue", label: "MBR slider -> BLUE: two-panel, spans the full bedroom wall section (opening = half)", tag: "ESTIMATE",
-      bounds: [-1.53, -1.47, -6.14, -3.34, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
-    { id: "door_mbr_mullion", label: "MBR slider mid mullion", tag: "ESTIMATE",
-      bounds: [-1.54, -1.46, -4.77, -4.71, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
-    { id: "door_dbk_red", label: "Bar/DBK slider -> RED: two-panel, spans the full lounge wall section (opening = half)", tag: "ESTIMATE",
-      bounds: [-1.53, -1.47, -3.34, -0.54, 0.0, 2.4], style: "glass", color: 0x4fd1c5 },
-    { id: "door_dbk_mullion", label: "Bar/DBK slider mid mullion", tag: "ESTIMATE",
-      bounds: [-1.54, -1.46, -1.97, -1.91, 0.0, 2.4], style: "frame", color: 0x4fd1c5 },
-
-
-    { id: "wall_bay_north", label: "White facade wall, north of the well opening - FLUSH plane; pergola end reaches this wall (Richard 09-03)", tag: "RULING",
-      bounds: [-2.21, -1.5, -0.62, -0.54, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
-    { id: "window_north", label: "Window flush IN the north wall", tag: "RULING",
-      bounds: [-2.08, -1.58, -0.63, -0.55, 0.52, 2.9], style: "glass", color: 0x63b3ed },
-    { id: "wall_bay_south", label: "White facade wall, south of the well opening (bar-door side pier wall)", tag: "RULING",
-      bounds: [1.5, 2.21, -0.62, -0.54, 0.0, 3.15], style: "solid", color: 0xe8edf2 },
-    { id: "window_south", label: "Window flush IN the south wall", tag: "RULING",
-      bounds: [1.58, 2.08, -0.63, -0.55, 0.52, 2.9], style: "glass", color: 0x63b3ed },
-
-    // ---- finishing details (2026-08-29 22:46, Richard) ----
-    { id: "outer_shade_blue", label: "Electric woven shade OUTSIDE blue pool-face PVC - street-lamp blackout, lowered at night (own property, blinds-precedent allowed)", tag: "ESTIMATE",
-      bounds: [0.04, 0.08, -6.14, -3.34, 0.0, 3.0], style: "pvc", color: 0x4a5568, edge: 0x9f7aea },
-    { id: "ac_unit", label: "Dual-hose portable AC - Richard's orange mark: clear of both slider openings", tag: "ESTIMATE",
-      bounds: [-1.1, -0.55, -3.15, -2.7, 0.0, 0.7], style: "solid", color: 0xed8936, edge: 0xed8936 },
-
-
-
-    { id: "ac_intake_duct", label: "INTAKE duct: floor-level run along the north wall to the bonsai face north end bay (insulation optional - it carries ambient air)", tag: "ESTIMATE",
-      bounds: [-1.45, -1.3, -2.7, -0.6, 0.1, 0.25], style: "solid", color: 0x2f855a, edge: 0x2f855a },
-    { id: "ac_intake_grommet", label: "INTAKE grommet LOW in the bonsai-side PVC, north end bay: sips open-sky well air; no heat enters the well, tree unaffected (23:07 ruling: intake low+far, never in the exhaust band)", tag: "ESTIMATE",
-      bounds: [-1.75, -1.55, -0.58, -0.5, 0.15, 0.35], style: "solid", color: 0x2f855a, edge: 0x2f855a },
-
-    { id: "ac_condensate", label: "Condensate drain hose: unit base -> deck drain, continuous fall (no bucket)", tag: "ESTIMATE",
-      bounds: [-1.0, -0.95, -3.1, -2.0, 0.02, 0.08], style: "solid", color: 0x63b3ed, edge: 0x63b3ed },
-
-    { id: "ac_hose_to_pole", label: "Exhaust hose: unit -> low opening in the vent column (insulated; ~1 m; 2 bends total)", tag: "ESTIMATE",
-      bounds: [-1.0, -0.1, -3.28, -3.14, 0.3, 0.5], style: "solid", color: 0xed8936, edge: 0xed8936 },
-
-
-    // ---- capture-walk measurement markers (toggle button on the page) ----
-    { id: "M1", label: "M1 slab edge line", tag: "MEASURE", bounds: [-0.02, 0.06, -6.14, -3.34, 2.94, 3.02], style: "solid", color: 0xff3b3b, edge: 0xff3b3b },
-    { id: "M2a", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.79,-0.71,-5.85,-5.77,0,3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
-    { id: "M2b", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.79,-0.71,-4.79,-4.71,0,3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
-    { id: "M2c", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.79,-0.71,-3.72,-3.64,0,3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
-    { id: "M3a", label: "M3 blue run", tag: "MEASURE", bounds: [-1.15,-1.07,-6.14,-3.34,0.06,0.14], style: "solid", color: 0xffe066, edge: 0xffe066 },
-    { id: "M3b", label: "M3 green run", tag: "MEASURE", bounds: [-2.9,0.0,-6.9,-6.82,0.06,0.14], style: "solid", color: 0xffe066, edge: 0xffe066 },
-    { id: "M4", label: "M4 blue width", tag: "MEASURE", bounds: [-1.5,0.0,-4.78,-4.70,0.10,0.18], style: "solid", color: 0x00e5ff, edge: 0x00e5ff },
-    { id: "M5", label: "M5 AC to water", tag: "MEASURE", bounds: [-0.82,0.10,-2.95,-2.87,0.35,0.43], style: "solid", color: 0xff4dff, edge: 0xff4dff },
-    { id: "M6a", label: "M6 pier", tag: "MEASURE", bounds: [-1.56,-1.44,-6.20,-6.06,0,2.4], style: "solid", color: 0xffffff, edge: 0xffffff },
-    { id: "M6b", label: "M6 pier", tag: "MEASURE", bounds: [-1.56,-1.44,-3.46,-3.32,0,2.4], style: "solid", color: 0xffffff, edge: 0xffffff },
-    { id: "M7", label: "M7 well upstand", tag: "MEASURE", bounds: [-0.90,-0.82,-0.62,-0.46,0,0.45], style: "solid", color: 0x39ff8a, edge: 0x39ff8a },
-    { id: "M8a", label: "M8 MBR slider width", tag: "MEASURE", bounds: [-1.46,-1.40,-6.10,-3.38,1.16,1.24], style: "solid", color: 0x4d79ff, edge: 0x4d79ff },
-    { id: "M8b", label: "M8 bar slider width", tag: "MEASURE", bounds: [-1.46,-1.40,-3.30,-0.58,1.16,1.24], style: "solid", color: 0x4d79ff, edge: 0x4d79ff },
-
-    // ---- context: the plunge pool (orientation aid) ----
-    { id: "plunge_pool", label: "Plunge pool - runs south from the bedroom-end deck, flanking red + living pavilion (photo-verified 09-04)", tag: "RULING",
-      bounds: [0.05, 4.6, -6.14, -3.34, -0.35, -0.05], style: "floor", color: 0x2b6cb0 },
-    { id: "pebble_channel", label: "Pebble/water-feature channel along the pool's promenade side (photos 5104/5112)", tag: "RULING",
-      bounds: [0.05, 4.6, -6.5, -6.14, -0.15, 0.0], style: "solid", color: 0x4a5568 },
-    { id: "outer_glass_fence", label: "Glass fence on the pool's outer edge; promenade + marina beyond", tag: "RULING",
-      bounds: [0.05, 4.6, -6.54, -6.5, 0.0, 1.0], style: "glass", color: 0x63b3ed },
-    { id: "street_lamp", label: "STREET LAMP on the promenade (photos 5103/5112) - the blackout-shade target", tag: "RULING",
-      bounds: [1.4, 1.5, -7.0, -6.9, 0.0, 3.5], style: "solid", color: 0x2d3748 },
-    { id: "boundary_dark_glass", label: "Dark-glass balustrade, green zone outer boundary to the BBQ promenade (photo 5110; mesh drops just inside it on its own poles)", tag: "RULING",
-      bounds: [-2.9, 0.0, -10.64, -10.6, 0.0, 1.1], style: "glass", color: 0x2c5282 }
+    // ---- capture markers (toggle) ----
+    { id: "M1", label: "M1 slab edge line", tag: "MEASURE", bounds: [0.53, 0.61, -6.96, -3.82, 2.94, 3.02], style: "solid", color: 0xff3b3b, edge: 0xff3b3b },
+    { id: "M2a", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.60, -0.52, -6.60, -6.52, 0, 3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
+    { id: "M2b", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.60, -0.52, -5.40, -5.32, 0, 3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
+    { id: "M2c", label: "M2 soffit height", tag: "MEASURE", bounds: [-0.60, -0.52, -4.10, -4.02, 0, 3.0], style: "solid", color: 0xff9500, edge: 0xff9500 },
+    { id: "M3a", label: "M3 blue run", tag: "MEASURE", bounds: [-0.20, -0.12, -6.96, -3.82, 0.06, 0.14], style: "solid", color: 0xffe066, edge: 0xffe066 },
+    { id: "M3b", label: "M3 green run", tag: "MEASURE", bounds: [-2.69, 0.60, -7.90, -7.82, 0.06, 0.14], style: "solid", color: 0xffe066, edge: 0xffe066 },
+    { id: "M4", label: "M4 blue width (bedroom wall -> pool edge)", tag: "MEASURE", bounds: [-1.72, 0.57, -5.00, -4.92, 0.10, 0.18], style: "solid", color: 0x00e5ff, edge: 0x00e5ff },
+    { id: "M5", label: "M5 AC spot -> water", tag: "MEASURE", bounds: [-1.30, 0.62, -3.55, -3.47, 0.35, 0.43], style: "solid", color: 0xff4dff, edge: 0xff4dff },
+    { id: "M6a", label: "M6 pier", tag: "MEASURE", bounds: [-1.80, -1.68, -6.99, -6.85, 0, 2.4], style: "solid", color: 0xffffff, edge: 0xffffff },
+    { id: "M6b", label: "M6 pier", tag: "MEASURE", bounds: [-1.80, -1.68, -3.93, -3.79, 0, 2.4], style: "solid", color: 0xffffff, edge: 0xffffff },
+    { id: "M7", label: "M7 well upstand", tag: "MEASURE", bounds: [-0.90, -0.82, -0.62, -0.46, 0, 0.45], style: "solid", color: 0x39ff8a, edge: 0x39ff8a },
+    { id: "M8a", label: "M8 MBR slider width", tag: "MEASURE", bounds: [-1.66, -1.60, -6.86, -3.92, 1.16, 1.24], style: "solid", color: 0x4d79ff, edge: 0x4d79ff },
+    { id: "M8b", label: "M8 bar slider width", tag: "MEASURE", bounds: [-1.66, -1.60, -3.72, -0.66, 1.16, 1.24], style: "solid", color: 0x4d79ff, edge: 0x4d79ff }
   ],
 
   superseded: [
+    { date: "2026-09-04", what: "all prior zone geometry (layouts v1-v2.5)",
+      replaced_by: "plan-traced zones at 67px/m, Richard-confirmed tint v3: blue = bedroom frontage only (pool-view face is its SOUTH end), red = bar frontage + planter to the pavilion wall, pool full length, green = gate walkway",
+      why: "zones tinted on the architect plan and confirmed by number; pavilion wall removes one blind from the RFQ" },
     { date: "2026-09-03", what: "side-return glass panes protruding at x=+/-2.21 with open notches to the walls",
       replaced_by: "flush deck-facing facade: white wall each side of the well opening with windows set IN the wall plane; pergola runs to the wall",
       why: "Richard (twice) + Fenny's photos: wall and window are flush; verify glazing detail at capture" },
@@ -1449,12 +1343,12 @@ const SUNCOURT_SPEC = {
   scene.background = new THREE.Color(0x161c27);
   const cam = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.05, 100);
   const CV = (window.CAM_OVERRIDE || {});
-  cam.position.set(...(CV.pos || [9.0, -11.0, 8.0])); cam.up.set(0,0,1);
+  cam.position.set(...(CV.pos || [11.0, -13.0, 9.0])); cam.up.set(0,0,1);
   const renderer = new THREE.WebGLRenderer({antialias:true});
   renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(devicePixelRatio);
   document.body.appendChild(renderer.domElement);
   const ctl = new THREE.OrbitControls(cam, renderer.domElement);
-  ctl.target.set(...(CV.target || [-0.5, -3.2, 1.0]));
+  ctl.target.set(...(CV.target || [1.5, -3.5, 1.0]));
   scene.add(new THREE.AmbientLight(0xffffff, .55));
   const sun = new THREE.DirectionalLight(0xfff8e7, .9); sun.position.set(4, -3, 8); scene.add(sun);
   const grid = new THREE.GridHelper(14, 28, 0x263042, 0x263042);
